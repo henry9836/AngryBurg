@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{C47F3480-2C71-4408-B51B-543CD933EC36}</ProjectGuid>
     <RootNamespace>AngryBurg</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -69,16 +69,33 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(ProjectDir)\Depends\Box2D\Dynamics\Rope;$(ProjectDir)\Depends\Box2D\Dynamics\Joints;$(ProjectDir)\Depends\Box2D\Dynamics\Contacts;$(ProjectDir)\Depends\Box2D\Dynamics;$(ProjectDir)\Depends\Box2D\Common;$(ProjectDir)\Depends\Box2D\Collision\Shapes;$(ProjectDir)\Depends\Box2D\Collision;$(ProjectDir)\Depends\Box2D\;$(ProjectDir)\Depends\;$(ProjectDir)\Depends\glm;$(ProjectDir)\Depends\glew;$(ProjectDir)\Depends\freetype;$(ProjectDir)\Depends\freeglut;$(ProjectDir)\Depends\fmod;$(ProjectDir)\Depends\soil;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\Depends\Box2D\Rope;$(ProjectDir)\Depends\Box2D\Dynamics\Joints;$(ProjectDir)\Depends\Box2D\Dynamics\Contacts;$(ProjectDir)\Depends\Box2D\Dynamics;$(ProjectDir)\Depends\Box2D\Common;$(ProjectDir)\Depends\Box2D\Collision\Shapes;$(ProjectDir)\Depends\Box2D\Collision;$(ProjectDir)\Depends\Box2D\;$(ProjectDir)\Depends\fmod;$(ProjectDir)\Depends\freeglut;$(ProjectDir)\Depends\freetype;$(ProjectDir)\Depends\glew;$(ProjectDir)\Depends\soil;$(ProjectDir)\Depends\glm;$(ProjectDir)\Depends\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(ProjectDir)\Depends\Box2D\Dynamics\Rope;$(ProjectDir)\Depends\Box2D\Dynamics\Joints;$(ProjectDir)\Depends\Box2D\Dynamics\Contacts;$(ProjectDir)\Depends\Box2D\Dynamics;$(ProjectDir)\Depends\Box2D\Common;$(ProjectDir)\Depends\Box2D\Collision\Shapes;$(ProjectDir)\Depends\Box2D\Collision;$(ProjectDir)\Depends\Box2D\;$(ProjectDir)\Depends\;$(ProjectDir)\Depends\glm;$(ProjectDir)\Depends\glew;$(ProjectDir)\Depends\freetype;$(ProjectDir)\Depends\freeglut;$(ProjectDir)\Depends\fmod;$(ProjectDir)\Depends\soil;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\Depends\Box2D\Rope;$(ProjectDir)\Depends\Box2D\Dynamics\Joints;$(ProjectDir)\Depends\Box2D\Dynamics\Contacts;$(ProjectDir)\Depends\Box2D\Dynamics;$(ProjectDir)\Depends\Box2D\Common;$(ProjectDir)\Depends\Box2D\Collision\Shapes;$(ProjectDir)\Depends\Box2D\Collision;$(ProjectDir)\Depends\Box2D\;$(ProjectDir)\Depends\fmod;$(ProjectDir)\Depends\freeglut;$(ProjectDir)\Depends\freetype;$(ProjectDir)\Depends\glew;$(ProjectDir)\Depends\soil;$(ProjectDir)\Depends\glm;$(ProjectDir)\Depends\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(ProjectDir)\Depends\Box2D\Dynamics\Rope;$(ProjectDir)\Depends\Box2D\Dynamics\Joints;$(ProjectDir)\Depends\Box2D\Dynamics\Contacts;$(ProjectDir)\Depends\Box2D\Dynamics;$(ProjectDir)\Depends\Box2D\Common;$(ProjectDir)\Depends\Box2D\Collision\Shapes;$(ProjectDir)\Depends\Box2D\Collision;$(ProjectDir)\Depends\Box2D\;$(ProjectDir)\Depends\;$(ProjectDir)\Depends\glm;$(ProjectDir)\Depends\glew;$(ProjectDir)\Depends\freetype;$(ProjectDir)\Depends\freeglut;$(ProjectDir)\Depends\fmod;$(ProjectDir)\Depends\soil;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\Depends\Box2D\Rope;$(ProjectDir)\Depends\Box2D\Dynamics\Joints;$(ProjectDir)\Depends\Box2D\Dynamics\Contacts;$(ProjectDir)\Depends\Box2D\Dynamics;$(ProjectDir)\Depends\Box2D\Common;$(ProjectDir)\Depends\Box2D\Collision\Shapes;$(ProjectDir)\Depends\Box2D\Collision;$(ProjectDir)\Depends\Box2D\;$(ProjectDir)\Depends\fmod;$(ProjectDir)\Depends\freeglut;$(ProjectDir)\Depends\freetype;$(ProjectDir)\Depends\glew;$(ProjectDir)\Depends\soil;$(ProjectDir)\Depends\glm;$(ProjectDir)\Depends\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(ProjectDir)\Depends\Box2D\Dynamics\Rope;$(ProjectDir)\Depends\Box2D\Dynamics\Joints;$(ProjectDir)\Depends\Box2D\Dynamics\Contacts;$(ProjectDir)\Depends\Box2D\Dynamics;$(ProjectDir)\Depends\Box2D\Common;$(ProjectDir)\Depends\Box2D\Collision\Shapes;$(ProjectDir)\Depends\Box2D\Collision;$(ProjectDir)\Depends\Box2D\;$(ProjectDir)\Depends\;$(ProjectDir)\Depends\glm;$(ProjectDir)\Depends\glew;$(ProjectDir)\Depends\freetype;$(ProjectDir)\Depends\freeglut;$(ProjectDir)\Depends\fmod;$(ProjectDir)\Depends\soil;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\Depends\Box2D\Rope;$(ProjectDir)\Depends\Box2D\Dynamics\Joints;$(ProjectDir)\Depends\Box2D\Dynamics\Contacts;$(ProjectDir)\Depends\Box2D\Dynamics;$(ProjectDir)\Depends\Box2D\Common;$(ProjectDir)\Depends\Box2D\Collision\Shapes;$(ProjectDir)\Depends\Box2D\Collision;$(ProjectDir)\Depends\Box2D\;$(ProjectDir)\Depends\fmod;$(ProjectDir)\Depends\freeglut;$(ProjectDir)\Depends\freetype;$(ProjectDir)\Depends\glew;$(ProjectDir)\Depends\soil;$(ProjectDir)\Depends\glm;$(ProjectDir)\Depends\;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>opengl32.lib;freeglut.lib;glew32.lib;SOIL.lib;fmod_vc.lib;freetype.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -87,9 +104,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>opengl32.lib;freeglut.lib;glew32.lib;SOIL.lib;fmod_vc.lib;freetype.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -100,11 +119,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;freeglut.lib;glew32.lib;SOIL.lib;fmod_vc.lib;freetype.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -115,14 +136,17 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;freeglut.lib;glew32.lib;SOIL.lib;fmod_vc.lib;freetype.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="main.cpp">
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp17</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp17</LanguageStandard>
@@ -132,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleController.h" />
+    <ClInclude Include="Graphics.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
