@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Util.h"
+class GameObject;
 
 class RenderClass {
 public:

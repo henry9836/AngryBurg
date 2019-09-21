@@ -9,6 +9,10 @@
 class Physics
 {
 public:
+
+	Physics();
+	~Physics();
+
 	void worldsetup();
 
 
@@ -16,3 +20,4 @@ private:
 
 
 };
+
