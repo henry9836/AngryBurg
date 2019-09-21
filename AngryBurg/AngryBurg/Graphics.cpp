@@ -2,14 +2,14 @@
 #include "Physics.h"
 
 Physics physics;
-Game game;
+Game* game;
 
 void Render() {
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-	for (size_t i = 0; i < game.gameObjects.size(); i++)
+	for (size_t i = 0; i < game->gameObjects.size(); i++)
 	{
-		game.gameObjects.at(i)->Render();
+		game->gameObjects.at(i)->Render();
 	}
 
 	glutSwapBuffers();
@@ -21,7 +21,7 @@ void Update() {
 
 void InitalizeOpenGL(int argc, char* argv[])
 {
-	game.Initalize();
+	game = new Game();
 
 	physics.worldsetup();
 
@@ -32,7 +32,7 @@ void InitalizeOpenGL(int argc, char* argv[])
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GLUT_MULTISAMPLE);
 	glutInitWindowPosition(100, 50);
-	glutInitWindowSize((int)game.ScreenSize.x, (int)game.ScreenSize.y);
+	glutInitWindowSize((int)game->ScreenSize.x, (int)game->ScreenSize.y);
 	glutCreateWindow("Angry Burbs");
 
 	if (glewInit() != GLEW_OK) {
@@ -41,7 +41,15 @@ void InitalizeOpenGL(int argc, char* argv[])
 		exit(0);
 	}
 
-	Console_OutputLog(L"Game Assets Initalised. Starting Game...", LOGINFO);
+	//Initalize Game After Glew is ready
+
+	MeshManager::GetInstance();
+
+	game->Initalize();
+
+	game->gameObjects.push_back(new BasicObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::CARD_ENTITY), MeshManager::SetTexture("Resources/Textures/missing.png"), game, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickObject(), Transform(), "Test Obj"));
+
+
 
 	glutDisplayFunc(Render);
 

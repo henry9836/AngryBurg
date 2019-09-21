@@ -14,6 +14,8 @@ std::shared_ptr<MESH> MeshManager::GetMesh(Object_Attributes _ObjectType)
 
 	if (_ObjectType == BAR_ENTITY) return ChangingSquareMesh;
 
+	Console_OutputLog(L"OMG A NULLPTR!", LOGWARN);
+
 	return nullptr;
 }
 
