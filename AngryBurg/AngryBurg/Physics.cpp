@@ -13,7 +13,7 @@ Physics::~Physics()
 
 void Physics::worldsetup()
 {
-	Console_OutputLog(L"box2d setup start", LOGINFO);
+	Console_OutputLog(L"Box2D Setup Start", LOGINFO);
 
 
 	//creating a world
@@ -31,5 +31,5 @@ void Physics::worldsetup()
 	wall = new Wall(m_world, b2Vec2(20, 20), 1, 20, 0); //right wall
 	Walls.push_back(wall);
 
-	Console_OutputLog(L"box2d setup done", LOGINFO);
+	Console_OutputLog(L"Box2D Setup Done.", LOGINFO);
 }

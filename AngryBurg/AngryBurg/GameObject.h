@@ -89,11 +89,11 @@ public:
 
 };
 
-class Wall : public GameObject {
+class WallObject : public GameObject {
 public:
-	Wall();
-	Wall(RenderClass* r, TickClass* t, Transform _trans, string _name);
-	~Wall();
+	WallObject();
+	WallObject(RenderClass* r, TickClass* t, Transform _trans, string _name);
+	~WallObject();
 
 	virtual void Tick(float deltaTime, GameObject* _gameObject) { _t->Tick(deltaTime, _gameObject); };
 	virtual void Render() { _r->Render(&transform); };

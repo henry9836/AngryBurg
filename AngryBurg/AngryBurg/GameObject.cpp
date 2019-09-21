@@ -114,11 +114,11 @@ BasicObject::~BasicObject()
 {
 }
 
-Wall::Wall()
+WallObject::WallObject()
 {
 }
 
-Wall::Wall(RenderClass* r, TickClass* t, Transform _trans, string _name)
+WallObject::WallObject(RenderClass* r, TickClass* t, Transform _trans, string _name)
 {
 	Console_OutputLog(to_wstring("Creating Wall Object: " + _name), LOGINFO);
 	_r = r;
@@ -127,7 +127,7 @@ Wall::Wall(RenderClass* r, TickClass* t, Transform _trans, string _name)
 	name = _name;
 }
 
-Wall::~Wall()
+WallObject::~WallObject()
 {
 }
 
