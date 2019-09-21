@@ -7,6 +7,10 @@ Game game;
 void Render() {
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
+	for (size_t i = 0; i < game.gameObjects.size(); i++)
+	{
+		game.gameObjects.at(i)->Render();
+	}
 
 	glutSwapBuffers();
 }

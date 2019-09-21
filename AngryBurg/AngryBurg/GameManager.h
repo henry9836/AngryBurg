@@ -1,9 +1,10 @@
 #pragma once
 #include "Util.h"
-#include "GameObject.h"
+
 #include "MeshManager.h"
 
 class CMenu;
+class GameObject;
 
 class Game {
 public:
@@ -28,3 +29,5 @@ public:
 	void populateObjects();
 
 };
+
+#include "GameObject.h"

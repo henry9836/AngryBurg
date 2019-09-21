@@ -2,6 +2,7 @@
 
 #include "Util.h"
 #include "GameObject.h"
+#include "GameManager.h"
 
 class GameObject;
 
@@ -15,19 +16,38 @@ public:
 class NoRender : public RenderClass {
 
 };
-//
-//class RenderObject : public RenderClass {
-//public:
-//	RenderObject();
-//	RenderObject(std::shared_ptr<MESH> _mesh, GLuint _texture, Game* _game, GLuint _shaderProgram) : VAO(_mesh->VAO), indiceCount(_mesh->IndicesCount), texture(_texture), game(_game), shaderProgram(_shaderProgram) {};
-//
-//};
+
+class RenderObject : public RenderClass {
+public:
+	RenderObject();
+	RenderObject(std::shared_ptr<MESH> _mesh, GLuint _texture, Game* _game, GLuint _shaderProgram) : VAO(_mesh->VAO), indiceCount(_mesh->IndicesCount), texture(_texture), game(_game), shaderProgram(_shaderProgram) {};
+
+	virtual void Render(Transform* _transform);
+	virtual void SetTexture(GLuint _tex);
+	virtual void SetShader(GLuint _shader);
+
+	GLuint VAO;
+	unsigned int indiceCount;
+	GLuint texture;
+	Game* game;
+	GLuint shaderProgram;
+
+};
 
 class TickClass {
 public:
 	virtual void Tick(float deltaTime, GameObject* _gameObject) = 0;
 };
 
+class IdleTick : public TickClass {
+public:
+	virtual void Tick(float deltaTime, GameObject* _gameObject) { return; };
+};
+
+class TickObject : public TickClass {
+public:
+	virtual void Tick(float deltaTime, GameObject* _gameObject);
+};
 
 class GameObject {
 public:
@@ -50,3 +70,16 @@ protected:
 	string name;
 };
 
+class BasicObject : public GameObject {
+public:
+	BasicObject();
+	BasicObject(RenderClass* r, TickClass* t, Transform _trans, string _name);
+	~BasicObject();
+
+	virtual void Tick(float deltaTime, GameObject* _gameObject) { _t->Tick(deltaTime, _gameObject); };
+	virtual void Render() { _r->Render(&transform); };
+
+	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
+	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
+
+};
