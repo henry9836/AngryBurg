@@ -49,6 +49,11 @@ public:
 	virtual void Tick(float deltaTime, GameObject* _gameObject);
 };
 
+class TickWall : public TickClass {
+public:
+	virtual void Tick(float deltaTime, GameObject* _gameObject);
+};
+
 class GameObject {
 public:
 	GameObject();
@@ -75,6 +80,20 @@ public:
 	BasicObject();
 	BasicObject(RenderClass* r, TickClass* t, Transform _trans, string _name);
 	~BasicObject();
+
+	virtual void Tick(float deltaTime, GameObject* _gameObject) { _t->Tick(deltaTime, _gameObject); };
+	virtual void Render() { _r->Render(&transform); };
+
+	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
+	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
+
+};
+
+class Wall : public GameObject {
+public:
+	Wall();
+	Wall(RenderClass* r, TickClass* t, Transform _trans, string _name);
+	~Wall();
 
 	virtual void Tick(float deltaTime, GameObject* _gameObject) { _t->Tick(deltaTime, _gameObject); };
 	virtual void Render() { _r->Render(&transform); };

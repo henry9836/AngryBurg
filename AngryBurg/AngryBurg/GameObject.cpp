@@ -113,3 +113,25 @@ BasicObject::BasicObject(RenderClass* r, TickClass* t, Transform _trans, string 
 BasicObject::~BasicObject()
 {
 }
+
+Wall::Wall()
+{
+}
+
+Wall::Wall(RenderClass* r, TickClass* t, Transform _trans, string _name)
+{
+	Console_OutputLog(to_wstring("Creating Wall Object: " + _name), LOGINFO);
+	_r = r;
+	_t = t;
+	transform = _trans;
+	name = _name;
+}
+
+Wall::~Wall()
+{
+}
+
+void TickWall::Tick(float deltaTime, GameObject* _gameObject)
+{
+	//don't know what to put here for physics
+}
