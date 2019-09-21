@@ -4,6 +4,10 @@
 Physics physics;
 Game* game;
 
+float currentTime;
+float deltaTime;
+float pasttime;
+
 void Render() {
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
@@ -16,6 +20,11 @@ void Render() {
 }
 
 void Update() {
+
+	currentTime = static_cast<float>(glutGet(GLUT_ELAPSED_TIME));
+	deltaTime = (currentTime - pasttime) * 0.1f;
+	pasttime = currentTime;
+
 	Render();
 }
 
@@ -54,8 +63,6 @@ void InitalizeOpenGL(int argc, char* argv[])
 	MeshManager::GetInstance();
 
 	game->Initalize();
-
-	game->gameObjects.push_back(new BasicObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::CARD_ENTITY), MeshManager::SetTexture("Resources/Textures/missing.png"), game, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickObject(), Transform(), "Test Obj"));
 
 
 
