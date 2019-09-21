@@ -1,9 +1,16 @@
 #include "Graphics.h"
 
+//temp
+#include "Physics.h"
+Physics physics;
+//temp
+
+
 Screen screen;
 
 void Render() {
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+
 
 	glutSwapBuffers();
 }
@@ -14,6 +21,7 @@ void Update() {
 
 void InitalizeOpenGL(int argc, char* argv[])
 {
+	physics.worldsetup();
 
 	Console_OutputLog(L"Initalizing OpenGL Service...", LOGINFO);
 
