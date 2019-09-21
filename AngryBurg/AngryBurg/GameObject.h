@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Util.h"
+#include "GameObject.h"
+
 class GameObject;
 
 class RenderClass {
@@ -13,6 +15,13 @@ public:
 class NoRender : public RenderClass {
 
 };
+//
+//class RenderObject : public RenderClass {
+//public:
+//	RenderObject();
+//	RenderObject(std::shared_ptr<MESH> _mesh, GLuint _texture, Game* _game, GLuint _shaderProgram) : VAO(_mesh->VAO), indiceCount(_mesh->IndicesCount), texture(_texture), game(_game), shaderProgram(_shaderProgram) {};
+//
+//};
 
 class TickClass {
 public:

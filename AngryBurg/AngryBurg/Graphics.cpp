@@ -1,12 +1,8 @@
 #include "Graphics.h"
-
-//temp
 #include "Physics.h"
+
 Physics physics;
-//temp
-
-
-Screen screen;
+Game game;
 
 void Render() {
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
@@ -21,6 +17,8 @@ void Update() {
 
 void InitalizeOpenGL(int argc, char* argv[])
 {
+	game.Initalize();
+
 	physics.worldsetup();
 
 	Console_OutputLog(L"Initalizing OpenGL Service...", LOGINFO);
@@ -30,7 +28,7 @@ void InitalizeOpenGL(int argc, char* argv[])
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GLUT_MULTISAMPLE);
 	glutInitWindowPosition(100, 50);
-	glutInitWindowSize((int)screen.screenSize.x, (int)screen.screenSize.y);
+	glutInitWindowSize((int)game.ScreenSize.x, (int)game.ScreenSize.y);
 	glutCreateWindow("Angry Burbs");
 
 	if (glewInit() != GLEW_OK) {
