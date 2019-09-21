@@ -9,12 +9,7 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-
 #include "ConsoleController.h"
-
-class Screen {
-public:
-	glm::vec2 screenSize = glm::vec2(1280, 720);
-};
+#include "GameManager.h"
 
 void InitalizeOpenGL(int argc, char* argv[]);
