@@ -125,10 +125,13 @@ MeshManager::~MeshManager()
 
 std::shared_ptr<MeshManager> MeshManager::GetInstance()
 {
+	Console_OutputLog(L"Initalizing MeshManager...", LOGINFO);
+
 	if (MeshManagerptr == nullptr)
 	{
 		MeshManagerptr = std::shared_ptr<MeshManager>(new MeshManager());
 	}
+	Console_OutputLog(L"MeshManager Initalized", LOGINFO);
 	return MeshManagerptr;
 }
 

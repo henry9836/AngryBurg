@@ -41,6 +41,14 @@ void InitalizeOpenGL(int argc, char* argv[])
 		exit(0);
 	}
 
+	glutSetOption(GLUT_MULTISAMPLE, 8);
+	glEnable(GL_MULTISAMPLE);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	glClearColor(1.0, 0.0, 0.0, 1.0);
+
+	Console_OutputLog(L"OpenGL Service Initalized", LOGINFO);
+
 	//Initalize Game After Glew is ready
 
 	MeshManager::GetInstance();

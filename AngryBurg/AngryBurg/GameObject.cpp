@@ -30,6 +30,10 @@ BasicObject::BasicObject()
 
 BasicObject::BasicObject(RenderClass* r, TickClass* t, Transform _trans, string _name)
 {
+	_r = r;
+	_t = t;
+	transform = _trans;
+	name = _name;
 }
 
 BasicObject::~BasicObject()
