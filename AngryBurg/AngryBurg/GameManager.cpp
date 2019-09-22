@@ -1,5 +1,7 @@
 #include "GameManager.h"
 
+AudioSystem* audio;
+
 Game::Game()
 {
 }
@@ -44,6 +46,12 @@ void Game::populateObjects(b2World* physicsWorld)
 void Game::Initalize(b2World* physicsWorld)
 {
 	Console_OutputLog(L"Initalizing Game...", LOGINFO);
+
+	audio = new AudioSystem();
+
+	audio->AudioInit();
+
+	audio->Play(AudioSystem::BACK);
 
 	populateObjects(physicsWorld);
 

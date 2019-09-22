@@ -3,6 +3,7 @@
 
 #include "MeshManager.h"
 #include "Physics.h"
+#include "Audio.h"
 
 class CMenu;
 class GameObject;
