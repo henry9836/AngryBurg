@@ -139,3 +139,8 @@ void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 {
 	//don't know what to put here for physics
 }
+
+void RenderText::Render(Transform* _transform)
+{
+	text->Render();
+}
