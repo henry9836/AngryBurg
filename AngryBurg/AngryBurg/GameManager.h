@@ -28,6 +28,8 @@ public:
 	glm::vec2 ScreenSize = { 1280, 720 };
 	glm::vec2 MousePosition;
 
+	bool mouseDown = false;
+
 	void switchScene(Scenes newScene);
 	void Initalize(Physics* physicsWorld);
 	void populateObjects(Physics* physicsWorld);

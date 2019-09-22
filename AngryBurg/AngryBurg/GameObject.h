@@ -24,6 +24,7 @@ class RenderObject : public RenderClass {
 public:
 	RenderObject();
 	RenderObject(std::shared_ptr<MESH> _mesh, GLuint _texture, Game* _game, GLuint _shaderProgram) : VAO(_mesh->VAO), indiceCount(_mesh->IndicesCount), texture(_texture), game(_game), shaderProgram(_shaderProgram) {};
+	~RenderObject();
 
 	virtual void Render(Transform* _transform);
 	virtual void SetTexture(GLuint _tex);
@@ -40,6 +41,7 @@ public:
 class RenderText : public RenderClass {
 public:
 	RenderText(CTextLabel* _text) : text(_text) {};
+	~RenderText();
 
 	virtual void Render(Transform* _transform);
 	virtual void SetTexture(GLuint _tex) {};
@@ -71,6 +73,7 @@ public:
 
 class GameObject {
 public:
+
 	GameObject();
 	GameObject(RenderClass* r, TickClass* t, Transform _trans, string _name) : _r(r), _t(t), transform(_trans), name(_name) { Console_OutputLog(to_wstring("Creating GameObject: " + _name), LOGINFO); };
 
@@ -82,11 +85,11 @@ public:
 
 	Transform& GetTransform() { return transform; };
 
+	bool deathMark = false;
 protected:
 	Transform transform;
 	RenderClass* _r;
 	TickClass* _t;
-
 	string name;
 };
 
@@ -117,6 +120,54 @@ public:
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
 	WallPhysics* wall;
 };
+
+class BirdObject : public GameObject {
+public:
+	enum BIRDTYPE {
+		DEFAULT
+	};
+
+	BirdObject();
+	BirdObject(RenderClass* r, TickClass* t, Transform _trans, string _name, WallPhysics* _wall, BIRDTYPE _bird, Game* _game);
+	~BirdObject();
+
+
+	virtual void Tick(float deltaTime, GameObject* _gameObject) { _t->Tick(deltaTime, _gameObject); };
+	virtual void Render() { _r->Render(&transform); };
+
+	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
+	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
+	WallPhysics* wall;
+	Game* game;
+	BIRDTYPE Birdtype = DEFAULT;
+};
+
+class TickBird : public TickClass {
+public:
+	virtual void Tick(float deltaTime, BirdObject* _gameObject);
+};
+
+class PigObject : public GameObject {
+public:
+	PigObject();
+	PigObject(RenderClass* r, TickClass* t, Transform _trans, string _name, WallPhysics* _wall, Game* _game);
+	~PigObject();
+
+	virtual void Tick(float deltaTime, GameObject* _gameObject) { _t->Tick(deltaTime, _gameObject); };
+	virtual void Render() { _r->Render(&transform); };
+
+	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
+	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
+	WallPhysics* wall;
+	Game* game;
+	float health = 10;
+};
+
+class TickPig : public TickClass {
+public:
+	virtual void Tick(float deltaTime, PigObject* _gameObject);
+};
+
 
 
 #include "TextManager.h"
