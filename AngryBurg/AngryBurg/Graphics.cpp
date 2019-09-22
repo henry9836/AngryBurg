@@ -48,6 +48,12 @@ void Update() {
 	deltaTime = (currentTime - pasttime) * 0.1f;
 	pasttime = currentTime;
 	FlashRed(&backColor, deltaTime);
+
+	for (size_t i = 0; i < game->gameObjects.size(); i++)
+	{
+		game->gameObjects.at(i)->Tick(deltaTime, game->gameObjects.at(i));
+	}
+
 	Render();
 }
 
