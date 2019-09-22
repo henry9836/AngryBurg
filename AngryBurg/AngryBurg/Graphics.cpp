@@ -14,7 +14,7 @@ void mouseMovement(int x, int y) {
 	/*float aX = (float(x) - (game->ScreenSize.x / 2)) / (game->ScreenSize.x / 2);
 	float aY = (float(y) - (game->ScreenSize.y / 2)) / (game->ScreenSize.y / 2);*/
 	float aX = (float(x) - (game->ScreenSize.x / 2)) / 1;
-	float aY = (float(y) - (game->ScreenSize.y / 2)) / 1;
+	float aY = -(float(y) - (game->ScreenSize.y / 2)) / 1;
 	//wcout << L"Adjusted X:" << aX << L" Y:" << aY << endl;
 	game->MousePosition = { aX, aY };
 }

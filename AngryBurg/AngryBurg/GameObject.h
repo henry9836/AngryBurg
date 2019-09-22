@@ -85,8 +85,9 @@ public:
 	WallPhysics* wall;
 
 	bool deathMark = false;
-protected:
 	Transform transform;
+protected:
+	
 	RenderClass* _r;
 	TickClass* _t;
 	string name;

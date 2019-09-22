@@ -9,6 +9,7 @@ Game::Game()
 
 Game::~Game()
 {
+
 }
 
 void Game::switchScene(Scenes newScene)
@@ -16,7 +17,7 @@ void Game::switchScene(Scenes newScene)
 	this->currentScene = newScene;
 }
 
-void Game::populateObjects(Physics* physicsWorld)
+void Game::populateObjects()
 {
 	Console_OutputLog(L"Populating Gameobject Lists...", LOGINFO);
 
@@ -43,7 +44,6 @@ void Game::populateObjects(Physics* physicsWorld)
 		this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/peter.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Test Wall", new WallPhysics(physicsWorld->m_world, physicsWorld->Walls.at(i)->m_middlepos, physicsWorld->Walls.at(i)->m_hx, physicsWorld->Walls.at(i)->m_hy, physicsWorld->Walls.at(i)->m_angle, physicsWorld->Walls.at(i)->m_type)));
 	}
 	
-	
 	/*
 	* ==============
 	* [ LVL1 SCENE ]
@@ -51,7 +51,7 @@ void Game::populateObjects(Physics* physicsWorld)
 	*/
 
 	this->lvlOneObjects.push_back(new BasicObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/sling.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(glm::vec3(-450.0f, -200.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(50.0f, 50.0f, 1.0f)), "Slingshot"));
-	this->lvlOneObjects.push_back(new BirdObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/bird.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(glm::vec3(-300.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(20.0f, 20.0f, 1.0f)), "Angry Bird", new WallPhysics(physicsWorld->m_world, physicsWorld->Walls.at(0)->m_middlepos, physicsWorld->Walls.at(0)->m_hx, physicsWorld->Walls.at(0)->m_hy, physicsWorld->Walls.at(0)->m_angle), BirdObject::DEFAULT, this));
+	sling = lvlOneObjects.back();
 	this->lvlOneObjects.push_back(new PigObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/pig.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(glm::vec3(300.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(20.0f, 20.0f, 1.0f)), "Pig", new WallPhysics(physicsWorld->m_world, physicsWorld->Walls.at(1)->m_middlepos, physicsWorld->Walls.at(1)->m_hx, physicsWorld->Walls.at(1)->m_hy, physicsWorld->Walls.at(1)->m_angle), this));
 
 	/*
@@ -87,6 +87,13 @@ void Game::populateObjects(Physics* physicsWorld)
 
 }
 
+float findDistance(glm::vec2 p1, glm::vec2 p2) {
+	float result = (sqrt((pow((p2.x-p1.x), 2)) + (pow(p2.y - p1.y , 2))));
+	if (result < 0) {
+		result *= -1;
+	}
+	return result;
+}
 
 void Exit() {
 
@@ -122,13 +129,21 @@ void Game::Tick(float deltaTime)
 		}
 	}
 	else if (currentScene == SCENE_LVL1) {
-		
+		if (playerBird == nullptr) {
+			lvlOneObjects.push_back(new BirdObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/bird.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(sling->transform.position, glm::vec3(0, 0, 0), glm::vec3(20.0f, 20.0f, 1.0f)), "Angry Bird", new WallPhysics(physicsWorld->m_world, physicsWorld->Walls.at(0)->m_middlepos, physicsWorld->Walls.at(0)->m_hx, physicsWorld->Walls.at(0)->m_hy, physicsWorld->Walls.at(0)->m_angle), BirdObject::DEFAULT, this));
+			playerBird = lvlOneObjects.back();
+		}
+
+		if (mouseDown) {
+			playerBird->transform.position = glm::vec3(MousePosition.x, MousePosition.y ,0.5);
+			Console_OutputLog(L"Clicked", LOGINFO);
+		}
 	}
 
 
 }
 
-void Game::Initalize(Physics* physicsWorld)
+void Game::Initalize(Physics* _physicsWorld)
 {
 	Console_OutputLog(L"Initalizing Game...", LOGINFO);
 
@@ -146,7 +161,9 @@ void Game::Initalize(Physics* physicsWorld)
 	glutSpecialFunc(Input::specialCharDown);
 	glutSpecialUpFunc(Input::specialCharUp);
 
-	populateObjects(physicsWorld);
+	physicsWorld = _physicsWorld;
+
+	populateObjects();
 
 	Console_OutputLog(L"Done.", LOGINFO);
 }
