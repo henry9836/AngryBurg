@@ -24,6 +24,7 @@ class RenderObject : public RenderClass {
 public:
 	RenderObject();
 	RenderObject(std::shared_ptr<MESH> _mesh, GLuint _texture, Game* _game, GLuint _shaderProgram) : VAO(_mesh->VAO), indiceCount(_mesh->IndicesCount), texture(_texture), game(_game), shaderProgram(_shaderProgram) {};
+	~RenderObject();
 
 	virtual void Render(Transform* _transform);
 	virtual void SetTexture(GLuint _tex);
@@ -40,6 +41,7 @@ public:
 class RenderText : public RenderClass {
 public:
 	RenderText(CTextLabel* _text) : text(_text) {};
+	~RenderText();
 
 	virtual void Render(Transform* _transform);
 	virtual void SetTexture(GLuint _tex) {};
@@ -82,6 +84,8 @@ public:
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
 
 	Transform& GetTransform() { return transform; };
+
+	bool deathMark = false;
 protected:
 	Transform transform;
 	RenderClass* _r;
@@ -124,7 +128,7 @@ public:
 	};
 
 	BirdObject();
-	BirdObject(RenderClass* r, TickClass* t, Transform _trans, string _name, WallPhysics* _wall, BIRDTYPE _bird);
+	BirdObject(RenderClass* r, TickClass* t, Transform _trans, string _name, WallPhysics* _wall, BIRDTYPE _bird, Game* _game);
 	~BirdObject();
 
 
@@ -134,6 +138,7 @@ public:
 	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
 	WallPhysics* wall;
+	Game* game;
 	BIRDTYPE Birdtype = DEFAULT;
 };
 
@@ -145,7 +150,7 @@ public:
 class PigObject : public GameObject {
 public:
 	PigObject();
-	PigObject(RenderClass* r, TickClass* t, Transform _trans, string _name, WallPhysics* _wall);
+	PigObject(RenderClass* r, TickClass* t, Transform _trans, string _name, WallPhysics* _wall, Game* _game);
 	~PigObject();
 
 	virtual void Tick(float deltaTime, GameObject* _gameObject) { _t->Tick(deltaTime, _gameObject); };
@@ -154,6 +159,7 @@ public:
 	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
 	WallPhysics* wall;
+	Game* game;
 	float health = 10;
 };
 
