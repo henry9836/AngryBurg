@@ -21,14 +21,14 @@ void Physics::worldsetup()
 
 
 
-	//Wall* wall = new Wall(m_world, b2Vec2(0, 0), 20 , 1, 0); //ground
-	//Walls.push_back(wall);
-	//wall = new Wall(m_world, b2Vec2(0, 40), 20, 1, 0); //ceiling
-	//Walls.push_back(wall);
-	//wall = new Wall(m_world, b2Vec2(-20, 20), 1, 20, 0); //left wall
-	//Walls.push_back(wall);
-	//wall = new Wall(m_world, b2Vec2(20, 20), 1, 20, 0); //right wall
-	//Walls.push_back(wall);
+	WallPhysics* wall = new WallPhysics(m_world, b2Vec2(0, 0), 20 , 5, 0); //ground
+	Walls.push_back(wall);
+	wall = new WallPhysics(m_world, b2Vec2(0, 40), 20, 5, 0); //ceiling
+	Walls.push_back(wall);
+	wall = new WallPhysics(m_world, b2Vec2(-20, 20), 5, 20, 0); //left wall
+	Walls.push_back(wall);
+	wall = new WallPhysics(m_world, b2Vec2(20, 20), 5, 20, 0); //right wall
+	Walls.push_back(wall);
 
 	Console_OutputLog(L"Box2D Setup Done.", LOGINFO);
 }

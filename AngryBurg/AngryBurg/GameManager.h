@@ -27,8 +27,8 @@ public:
 	glm::vec2 MousePosition;
 
 	void switchScene(Scenes newScene);
-	void Initalize(b2World* physicsWorld);
-	void populateObjects(b2World* physicsWorld);
+	void Initalize(Physics* physicsWorld);
+	void populateObjects(Physics* physicsWorld);
 
 };
 
