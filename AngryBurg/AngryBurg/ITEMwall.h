@@ -14,7 +14,7 @@ public:
 
 	WallPhysics(b2World* world, b2Vec2 middlepos, float32 hx, float32 hy, float32 angle, b2BodyType type)
 	{
-		if (type == b2_staticBody)
+		if (type == b2_staticBody) //static
 		{
 			m_body = NULL;
 			m_middlepos = middlepos;
@@ -23,11 +23,13 @@ public:
 			m_angle = angle;
 			m_type = type;
 
+			
+
 
 			b2BodyDef myBodyDef;
 			myBodyDef.type = type;
-			myBodyDef.position.Set(0, 0);
-			b2Body* staticBody = world->CreateBody(&myBodyDef);
+			myBodyDef.position.Set(hx, hy);
+			m_body = world->CreateBody(&myBodyDef);
 
 
 			b2PolygonShape polygonShape;
@@ -37,11 +39,11 @@ public:
 			b2FixtureDef myFixtureDef;
 			myFixtureDef.shape = &polygonShape;
 
-			staticBody->CreateFixture(&myFixtureDef);
+			m_body->CreateFixture(&myFixtureDef);
 
 		}
 
-		if (type == b2_dynamicBody)
+		if (type == b2_dynamicBody) // dynamic
 		{
 			m_body = NULL;
 			m_middlepos = middlepos;
@@ -53,8 +55,8 @@ public:
 
 			b2BodyDef myBodyDef;
 			myBodyDef.type = type;
-			myBodyDef.position.Set(0, 0);
-			b2Body* dynamicBody = world->CreateBody(&myBodyDef);
+			myBodyDef.position.Set(hx, hy);
+			m_body = world->CreateBody(&myBodyDef);
 
 
 			b2PolygonShape polygonShape;
@@ -65,9 +67,9 @@ public:
 			myFixtureDef.shape = &polygonShape;
 			myFixtureDef.density = 1;
 
-			dynamicBody->CreateFixture(&myFixtureDef);
+			m_body->CreateFixture(&myFixtureDef);
+			m_body->SetLinearVelocity( b2Vec2(1.0f, 1.0f) );
 
-			dynamicBody->SetAngularVelocity(-90 * 0.0174532925199432957f);
 
 		}
 

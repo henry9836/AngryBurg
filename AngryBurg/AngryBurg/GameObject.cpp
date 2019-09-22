@@ -139,8 +139,19 @@ void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 {
 	Console_OutputLog(L"tock", LOGINFO);
 	WallPhysics* wall =  _gameObject->wall;
-	_gameObject->GetTransform().position = glm::vec3(wall->m_middlepos.x, wall->m_middlepos.y, 0.0f);
-	_gameObject->GetTransform().rotation = glm::vec3(0.0f, 0.0f , wall->m_angle);
-	_gameObject->GetTransform().scale = glm::vec3(wall->m_hx, wall->m_hy, 0.0f);
+
+
+	wall->m_body->ApplyForce(b2Vec2(-9.81f, 0), wall->m_body->GetWorldCenter(), true);
+
+	float32 temprot =  wall->m_body->GetAngle();
+	//b2Vec2 temppos = wall->m_body->GetLocalPoint();
+
+	//_gameObject->GetTransform().position = glm::vec3(temppos.x, temppos.y, 0.0f);
+	_gameObject->GetTransform().rotation = glm::vec3(0.0f, 0.0f, temprot);
+
+
+	Console_OutputLog(to_wstring(_gameObject->GetTransform().position.x) + L" "+ to_wstring(_gameObject->GetTransform().position.y), LOGINFO);
+	//Console_OutputLog(to_wstring(_gameObject->GetTransform().rotation.z), LOGINFO);
+
 	//don't know what to put here for physics
 }
