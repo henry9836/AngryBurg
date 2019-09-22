@@ -8,7 +8,6 @@ float currentTime;
 float deltaTime;
 float pasttime;
 bool goingup = true;
-bool mouseDown = false;
 glm::vec3 backColor = glm::vec3(0.0, 0.0, 0.0);
 
 void mouseMovement(int x, int y) {
@@ -21,12 +20,12 @@ void mouseMovement(int x, int y) {
 }
 
 void mouse(int button, int state, int x, int y) { //Click
-	if (!mouseDown) {
+	if (!game->mouseDown) {
 		//wcout << "Mouse Clicked: " << button << endl;
-		mouseDown = true;
+		game->mouseDown = true;
 	}
 	else {
-		mouseDown = false;
+		game->mouseDown = false;
 	}
 }
 
