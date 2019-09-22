@@ -3,9 +3,7 @@
 #include <windows.h>
 #include <Box2D/Box2D.h>
 #include "ConsoleController.h"
-
-
-
+#include "ITEMwall.h"
 class Physics
 {
 public:
@@ -15,9 +13,7 @@ public:
 
 	void worldsetup();
 
-
-private:
-
-
+	std::vector<WallPhysics*> Walls;
+	b2World* m_world;
 };
 

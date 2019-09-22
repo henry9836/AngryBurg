@@ -2,6 +2,7 @@
 #include "Util.h"
 
 #include "MeshManager.h"
+#include "Physics.h"
 
 class CMenu;
 class GameObject;
@@ -25,8 +26,8 @@ public:
 	glm::vec2 MousePosition;
 
 	void switchScene(Scenes newScene);
-	void Initalize();
-	void populateObjects();
+	void Initalize(b2World* physicsWorld);
+	void populateObjects(b2World* physicsWorld);
 
 };
 

@@ -168,7 +168,7 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Graphics.h" />
-    <ClInclude Include="ITEM_wall.h" />
+    <ClInclude Include="ITEMwall.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MeshManager.h" />

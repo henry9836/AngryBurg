@@ -77,10 +77,10 @@
     <ClInclude Include="GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ITEM_wall.h">
+    <ClInclude Include="GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h">
+    <ClInclude Include="ITEMwall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,6 +3,8 @@
 #include "Util.h"
 #include "GameObject.h"
 #include "GameManager.h"
+#include "Physics.h"
+
 
 class GameObject;
 
@@ -92,7 +94,7 @@ public:
 class WallObject : public GameObject {
 public:
 	WallObject();
-	WallObject(RenderClass* r, TickClass* t, Transform _trans, string _name);
+	WallObject(RenderClass* r, TickClass* t, Transform _trans, string _name, WallPhysics* _wall);
 	~WallObject();
 
 	virtual void Tick(float deltaTime, GameObject* _gameObject) { _t->Tick(deltaTime, _gameObject); };
@@ -100,5 +102,7 @@ public:
 
 	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
-
+	WallPhysics* wall;
 };
+
+

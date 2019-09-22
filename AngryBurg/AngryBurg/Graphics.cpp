@@ -85,7 +85,7 @@ void InitalizeOpenGL(int argc, char* argv[])
 
 	MeshManager::GetInstance();
 
-	game->Initalize();
+	game->Initalize(physics.m_world);
 
 
 

@@ -1,5 +1,4 @@
 #include "Physics.h"
-#include "ITEM_wall.h"
 
 
 
@@ -18,18 +17,18 @@ void Physics::worldsetup()
 
 	//creating a world
 	b2Vec2 gravity(0.0f, -9.81f);
-	b2World* m_world = new b2World(gravity);
+	m_world = new b2World(gravity);
 
 
 
-	Wall* wall = new Wall(m_world, b2Vec2(0, 0), 20 , 1, 0); //ground
-	Walls.push_back(wall);
-	wall = new Wall(m_world, b2Vec2(0, 40), 20, 1, 0); //ceiling
-	Walls.push_back(wall);
-	wall = new Wall(m_world, b2Vec2(-20, 20), 1, 20, 0); //left wall
-	Walls.push_back(wall);
-	wall = new Wall(m_world, b2Vec2(20, 20), 1, 20, 0); //right wall
-	Walls.push_back(wall);
+	//Wall* wall = new Wall(m_world, b2Vec2(0, 0), 20 , 1, 0); //ground
+	//Walls.push_back(wall);
+	//wall = new Wall(m_world, b2Vec2(0, 40), 20, 1, 0); //ceiling
+	//Walls.push_back(wall);
+	//wall = new Wall(m_world, b2Vec2(-20, 20), 1, 20, 0); //left wall
+	//Walls.push_back(wall);
+	//wall = new Wall(m_world, b2Vec2(20, 20), 1, 20, 0); //right wall
+	//Walls.push_back(wall);
 
 	Console_OutputLog(L"Box2D Setup Done.", LOGINFO);
 }

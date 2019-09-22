@@ -118,13 +118,14 @@ WallObject::WallObject()
 {
 }
 
-WallObject::WallObject(RenderClass* r, TickClass* t, Transform _trans, string _name)
+WallObject::WallObject(RenderClass* r, TickClass* t, Transform _trans, string _name, WallPhysics* _wall)
 {
 	Console_OutputLog(to_wstring("Creating Wall Object: " + _name), LOGINFO);
 	_r = r;
 	_t = t;
 	transform = _trans;
 	name = _name;
+	wall = _wall;
 }
 
 WallObject::~WallObject()
