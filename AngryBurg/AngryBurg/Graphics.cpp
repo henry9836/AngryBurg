@@ -7,8 +7,31 @@ Game* game;
 float currentTime;
 float deltaTime;
 float pasttime;
+bool goingup = true;
+glm::vec3 backColor = glm::vec3(0.0, 0.0, 0.0);
+
+void FlashRed(glm::vec3* inColor, float deltaTime) {
+	float increase = 0.01f * deltaTime;
+	if (goingup) {
+		if (inColor->x >= 1) {
+			goingup = !goingup;
+		}
+		else {
+			inColor->x += increase;
+		}
+	}
+	else {
+		if (inColor->x <= 0) {
+			goingup = !goingup;
+		}
+		else {
+			inColor->x -= increase;
+		}
+	}
+}
 
 void Render() {
+	glClearColor(backColor.x, backColor.y, backColor.z, 1.0);
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
 	for (size_t i = 0; i < game->gameObjects.size(); i++)
@@ -24,7 +47,7 @@ void Update() {
 	currentTime = static_cast<float>(glutGet(GLUT_ELAPSED_TIME));
 	deltaTime = (currentTime - pasttime) * 0.1f;
 	pasttime = currentTime;
-
+	FlashRed(&backColor, deltaTime);
 	Render();
 }
 
@@ -54,7 +77,7 @@ void InitalizeOpenGL(int argc, char* argv[])
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
-	glClearColor(1.0, 0.0, 0.0, 1.0);
+	glClearColor(backColor.x, backColor.y, backColor.z, 1.0);
 
 	Console_OutputLog(L"OpenGL Service Initalized", LOGINFO);
 
