@@ -127,7 +127,7 @@ WallObject::WallObject(RenderClass* r, TickClass* t, Transform _trans, string _n
 	name = _name;
 	wall = _wall;
 	transform.position = glm::vec3(wall->m_middlepos.x, wall->m_middlepos.y, 0.0f);
-	transform.rotation = glm::vec3(0.0f, wall->m_angle, 0.0f);
+	transform.rotation = glm::vec3(0.0f,0.0f , wall->m_angle);
 	transform.scale = glm::vec3(wall->m_hx, wall->m_hy, 0.0f);
 }
 
@@ -135,7 +135,12 @@ WallObject::~WallObject()
 {
 }
 
-void TickWall::Tick(float deltaTime, GameObject* _gameObject)
+void TickWall::Tick(float deltaTime, WallObject* _gameObject)
 {
+	Console_OutputLog(L"tock", LOGINFO);
+	WallPhysics* wall =  _gameObject->wall;
+	_gameObject->GetTransform().position = glm::vec3(wall->m_middlepos.x, wall->m_middlepos.y, 0.0f);
+	_gameObject->GetTransform().rotation = glm::vec3(0.0f, 0.0f , wall->m_angle);
+	_gameObject->GetTransform().scale = glm::vec3(wall->m_hx, wall->m_hy, 0.0f);
 	//don't know what to put here for physics
 }

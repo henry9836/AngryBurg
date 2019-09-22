@@ -51,10 +51,7 @@ public:
 	virtual void Tick(float deltaTime, GameObject* _gameObject);
 };
 
-class TickWall : public TickClass {
-public:
-	virtual void Tick(float deltaTime, GameObject* _gameObject);
-};
+
 
 class GameObject {
 public:
@@ -105,4 +102,9 @@ public:
 	WallPhysics* wall;
 };
 
+
+class TickWall : public TickClass {
+public:
+	virtual void Tick(float deltaTime, WallObject* _gameObject);
+};
 
