@@ -71,6 +71,7 @@ public:
 
 class GameObject {
 public:
+
 	GameObject();
 	GameObject(RenderClass* r, TickClass* t, Transform _trans, string _name) : _r(r), _t(t), transform(_trans), name(_name) { Console_OutputLog(to_wstring("Creating GameObject: " + _name), LOGINFO); };
 
@@ -81,12 +82,10 @@ public:
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
 
 	Transform& GetTransform() { return transform; };
-
 protected:
 	Transform transform;
 	RenderClass* _r;
 	TickClass* _t;
-
 	string name;
 };
 
@@ -117,6 +116,52 @@ public:
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
 	WallPhysics* wall;
 };
+
+class BirdObject : public GameObject {
+public:
+	enum BIRDTYPE {
+		DEFAULT
+	};
+
+	BirdObject();
+	BirdObject(RenderClass* r, TickClass* t, Transform _trans, string _name, WallPhysics* _wall, BIRDTYPE _bird);
+	~BirdObject();
+
+
+	virtual void Tick(float deltaTime, GameObject* _gameObject) { _t->Tick(deltaTime, _gameObject); };
+	virtual void Render() { _r->Render(&transform); };
+
+	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
+	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
+	WallPhysics* wall;
+	BIRDTYPE Birdtype = DEFAULT;
+};
+
+class TickBird : public TickClass {
+public:
+	virtual void Tick(float deltaTime, BirdObject* _gameObject);
+};
+
+class PigObject : public GameObject {
+public:
+	PigObject();
+	PigObject(RenderClass* r, TickClass* t, Transform _trans, string _name, WallPhysics* _wall);
+	~PigObject();
+
+	virtual void Tick(float deltaTime, GameObject* _gameObject) { _t->Tick(deltaTime, _gameObject); };
+	virtual void Render() { _r->Render(&transform); };
+
+	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
+	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
+	WallPhysics* wall;
+	float health = 10;
+};
+
+class TickPig : public TickClass {
+public:
+	virtual void Tick(float deltaTime, PigObject* _gameObject);
+};
+
 
 
 #include "TextManager.h"

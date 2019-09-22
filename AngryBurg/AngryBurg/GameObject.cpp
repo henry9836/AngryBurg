@@ -95,6 +95,7 @@ void RenderObject::SetShader(GLuint _shader)
 
 void TickObject::Tick(float deltaTime, GameObject* _gameObject)
 {
+
 }
 
 BasicObject::BasicObject()
@@ -143,4 +144,59 @@ void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 void RenderText::Render(Transform* _transform)
 {
 	text->Render();
+}
+
+BirdObject::BirdObject()
+{
+}
+
+BirdObject::BirdObject(RenderClass* r, TickClass* t, Transform _trans, string _name, WallPhysics* _wall, BIRDTYPE _bird)
+{
+	Console_OutputLog(to_wstring("Creating Bird Object: " + _name), LOGINFO);
+	_r = r;
+	_t = t;
+	transform = _trans;
+	name = _name;
+	wall = _wall;
+	transform.position = glm::vec3(wall->m_middlepos.x, wall->m_middlepos.y, 0.0f);
+	transform.rotation = glm::vec3(0.0f, wall->m_angle, 0.0f);
+	transform.scale = glm::vec3(wall->m_hx, wall->m_hy, 0.0f);
+	Birdtype = _bird;
+}
+
+BirdObject::~BirdObject()
+{
+}
+
+PigObject::PigObject()
+{
+}
+
+PigObject::PigObject(RenderClass* r, TickClass* t, Transform _trans, string _name, WallPhysics* _wall)
+{
+	Console_OutputLog(to_wstring("Creating Bird Object: " + _name), LOGINFO);
+	_r = r;
+	_t = t;
+	transform = _trans;
+	name = _name;
+	wall = _wall;
+	transform.position = glm::vec3(wall->m_middlepos.x, wall->m_middlepos.y, 0.0f);
+	transform.rotation = glm::vec3(0.0f, wall->m_angle, 0.0f);
+	transform.scale = glm::vec3(wall->m_hx, wall->m_hy, 0.0f);
+}
+
+PigObject::~PigObject()
+{
+}
+
+void TickBird::Tick(float deltaTime, BirdObject* _gameObject)
+{
+
+}
+
+void TickPig::Tick(float deltaTime, PigObject* _gameObject)
+{
+	if (_gameObject->health <= 0) {
+		_gameObject->~PigObject();
+	}
 }
