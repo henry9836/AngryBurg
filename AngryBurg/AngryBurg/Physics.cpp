@@ -19,11 +19,8 @@ void Physics::worldsetup()
 	b2Vec2 gravity(0.0f, -9.81f);
 	m_world = new b2World(gravity);
 
-	float32 timeStep = 1 / 20.0f;      //the length of time passed to simulate (seconds)
-	int32 velocityIterations = 8;   //how strongly to correct velocity
-	int32 positionIterations = 3;   //how strongly to correct position
 
-	m_world->Step(timeStep, velocityIterations, positionIterations);
+
 
 	float32 thicknes = 30;
 

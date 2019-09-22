@@ -10,6 +10,7 @@ public:
 	float32 m_hy;
 	float32 m_angle;
 	b2BodyType m_type;
+	b2World m_b2world = b2World(b2Vec2 (0.0f, 0.0f));
 
 
 	WallPhysics(b2World* world, b2Vec2 middlepos, float32 hx, float32 hy, float32 angle, b2BodyType type)
@@ -22,7 +23,7 @@ public:
 			m_hy = hy;
 			m_angle = angle;
 			m_type = type;
-
+			m_b2world = *world;
 			
 
 
@@ -51,6 +52,7 @@ public:
 			m_hy = hy;
 			m_angle = angle;
 			m_type = type;
+			m_b2world = *world;
 
 
 			b2BodyDef myBodyDef;

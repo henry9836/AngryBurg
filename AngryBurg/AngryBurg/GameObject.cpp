@@ -138,10 +138,20 @@ WallObject::~WallObject()
 void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 {
 	Console_OutputLog(L"tock", LOGINFO);
-	WallPhysics* wall =  _gameObject->wall;
 
 
-	wall->m_body->ApplyForce(b2Vec2(-9.81f, 0), wall->m_body->GetWorldCenter(), true);
+	float32 timeStep = 1 / 20.0f;      //the length of time passed to simulate (seconds)
+	int32 velocityIterations = 8;   //how strongly to correct velocity
+	int32 positionIterations = 3;   //how strongly to correct position
+
+	WallPhysics* wall = _gameObject->wall;
+
+	wall->m_b2world.Step(timeStep, velocityIterations, positionIterations);
+
+
+
+
+	wall->m_body->ApplyLinearImpulse(b2Vec2(-9.81f, 0), wall->m_body->GetWorldCenter(), true);
 
 	float32 temprot =  wall->m_body->GetAngle();
 	//b2Vec2 temppos = wall->m_body->GetLocalPoint();
