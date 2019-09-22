@@ -8,7 +8,28 @@ float currentTime;
 float deltaTime;
 float pasttime;
 bool goingup = true;
+bool mouseDown = false;
 glm::vec3 backColor = glm::vec3(0.0, 0.0, 0.0);
+
+void mouseMovement(int x, int y) {
+	/*float aX = (float(x) - (game->ScreenSize.x / 2)) / (game->ScreenSize.x / 2);
+	float aY = (float(y) - (game->ScreenSize.y / 2)) / (game->ScreenSize.y / 2);*/
+	float aX = (float(x) - (game->ScreenSize.x / 2)) / 1;
+	float aY = (float(y) - (game->ScreenSize.y / 2)) / 1;
+	//wcout << L"Adjusted X:" << aX << L" Y:" << aY << endl;
+	game->MousePosition = { aX, aY };
+}
+
+void mouse(int button, int state, int x, int y) { //Click
+	if (!mouseDown) {
+		//wcout << "Mouse Clicked: " << button << endl;
+		mouseDown = true;
+	}
+	else {
+		mouseDown = false;
+	}
+}
+
 
 void FlashRed(glm::vec3* inColor, float deltaTime) {
 	float increase = 0.01f * deltaTime;
@@ -106,6 +127,10 @@ void InitalizeOpenGL(int argc, char* argv[])
 	//Initalize Game After Glew is ready
 
 	MeshManager::GetInstance();
+
+	// mouse event handlers
+	glutMouseFunc(mouse);
+	glutPassiveMotionFunc(mouseMovement);
 
 	game->Initalize(&physics);
 
