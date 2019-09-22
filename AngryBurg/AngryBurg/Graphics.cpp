@@ -39,6 +39,25 @@ void Render() {
 		game->gameObjects.at(i)->Render();
 	}
 
+	if (game->currentScene == SCENE_MAIN) {
+		for (size_t i = 0; i < game->mainObjects.size(); i++)
+		{
+			game->mainObjects.at(i)->Render();
+		}
+	}
+	else if (game->currentScene == SCENE_LVL1) {
+		for (size_t i = 0; i < game->lvlOneObjects.size(); i++)
+		{
+			game->lvlOneObjects.at(i)->Render();
+		}
+	}
+	else if (game->currentScene == SCENE_LVL2) {
+		for (size_t i = 0; i < game->lvlTwoObjects.size(); i++)
+		{
+			game->lvlTwoObjects.at(i)->Render();
+		}
+	}
+
 	glutSwapBuffers();
 }
 

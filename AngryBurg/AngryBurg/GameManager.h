@@ -16,7 +16,7 @@ public:
 	Game();
 	~Game();
 
-	Scenes currentScene;
+	Scenes currentScene = SCENE_MAIN;
 	CMenu* StartMenu;
 
 	//scenes
