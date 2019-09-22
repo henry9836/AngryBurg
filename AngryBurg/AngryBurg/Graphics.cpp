@@ -39,6 +39,8 @@ void Render() {
 		game->gameObjects.at(i)->Render();
 	}
 
+	game->title->Render();
+
 	glutSwapBuffers();
 }
 

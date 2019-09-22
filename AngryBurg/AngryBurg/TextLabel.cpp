@@ -1,53 +1,57 @@
-#include "TextManager.h"
+#include "TextLabel.h"
 
-//temp Constructor
-CTextLabel::CTextLabel()
+
+TextLabel::~TextLabel()
 {
 
 }
-//Init the class fully
-CTextLabel::CTextLabel(std::string newText, std::string newFont, glm::vec2 pos, glm::vec3 color, float scale, glm::vec2 screenSize, std::string _name)
+
+
+TextLabel::TextLabel()
 {
-	Console_OutputLog(to_wstring("Creating Text Object: " + _name), LOGINFO);
-	text = newText;
+}
+
+
+
+TextLabel::TextLabel(glm::vec2 m_screen, std::string m_Text, std::string newFont, glm::vec2 m_pos, glm::vec3 color, float scale)
+{
+	text = m_Text;
 	SetColor(color);
 	SetScale(scale);
-	SetPosition(pos);
+	SetPosition(m_pos);
+	GLfloat halfWidth = (m_screen.x * 0.5f);
+	GLfloat halfHeight = (m_screen.y  * 0.5f);
 
-	GLfloat halfScreenWidth = (GLfloat)screenSize.x * 0.5f;
-	GLfloat halfScreenHeight = (GLfloat)screenSize.y * 0.5f;
-	proj = glm::ortho(-halfScreenWidth, halfScreenWidth, -halfScreenHeight, halfScreenHeight);
+	proj = glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight);
 	program = ShaderLoader::CreateProgram("Resources/Shaders/Text.vs", "Resources/Shaders/Text.fs");
 
 	FT_Library ft;
 	FT_Face face;
 
-	FT_Error FT_Init_FreeType(FT_Library * aLibrary);
-	FT_Error FT_New_Face(FT_Library library, const char* filepath, FT_Long face_index, FT_Face * aFace);
+	FT_Error FT_Init_FreeType(FT_Library* aLibrary);
+	FT_Error FT_New_Face(FT_Library library, const char* filepath, FT_Long face_index, FT_Face* aFace);
 
 
 	if (FT_Init_FreeType(&ft) != 0)
 	{
-		Console_OutputLog(L"Could not load the FreeType Libary", LOGWARN);
+		Console_OutputLog(L"ERROR::FREETYPE: Could not init FreeType Library", LOGWARN);
 	}
 
 	if (FT_New_Face(ft, newFont.c_str(), 0, &face) != 0)
 	{
-		Console_OutputLog(L"Could not load font", LOGWARN);
-		return;
+		Console_OutputLog(L"FREETYPE: Failed to Load font", LOGWARN);
 	}
 	FT_Set_Pixel_Sizes(face, 0, 48);
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
 	for (GLubyte character = 0; character < 128; character++)
 	{
 		if (FT_Load_Char(face, character, FT_LOAD_RENDER))
 		{
-			Console_OutputLog(L"Could not load Glyph", LOGWARN);
+			Console_OutputLog(L"FREETYPE: Failed to load Glyph", LOGWARN);
 			continue;
 		}
 
-		GLuint texture = GenerateTexture(face);
+		GLuint texture = GeneratTexture(face);
 
 		FontChar fontChar = { texture, glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows), glm::ivec2(face->glyph->bitmap_left,face->glyph->bitmap_top), (GLuint)face->glyph->advance.x };
 		Characters.insert(std::pair<GLchar, FontChar>(character, fontChar));
@@ -69,8 +73,8 @@ CTextLabel::CTextLabel(std::string newText, std::string newFont, glm::vec2 pos, 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
-//Renders the text on to the screen
-void CTextLabel::Render()
+
+void TextLabel::Render()
 {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -79,48 +83,56 @@ void CTextLabel::Render()
 	glUniformMatrix4fv(glGetUniformLocation(program, "proj"), 1, GL_FALSE, glm::value_ptr(proj));
 	glBindVertexArray(VAO);
 
-	glActiveTexture(GL_TEXTURE0);
 	glm::vec2 textPos = position;
-	float initialx = textPos.x; //Holds the x pos for menu
+	float initialx = textPos.x;
+
 	for (std::string::const_iterator character = text.begin(); character != text.end(); character++)
 	{
+
+
 		FontChar fontChar = Characters[*character];
-		GLfloat xpos = textPos.x + fontChar.Bearing.x * scale;
+
+
+		GLfloat xpos = textPos.x + fontChar.Bearing.x *scale;
 		GLfloat ypos = textPos.y - (fontChar.Size.y - fontChar.Bearing.y) * scale;
 		GLfloat charWidth = fontChar.Size.x * scale;
 		GLfloat charHeight = fontChar.Size.y * scale;
 
-		if (*character == 10)// slash key in code
+		if (*character == 10)
 		{
 			textPos.x = (initialx - 6);
 			textPos.y -= (fontChar.Advance >> 5) * scale * 1.1f;
 		}
 		else
 		{
+
 			GLfloat vertices[6][4] = {
-				{xpos, ypos + charHeight, 0.0, 0.0 }, {xpos, ypos, 0.0, 1.0}, {xpos + charWidth, ypos, 1.0, 1.0},
-				{xpos, ypos + charHeight, 0.0, 0.0 }, {xpos + charWidth, ypos, 1.0, 1.0} , {xpos + charWidth, ypos + charHeight, 1.0, 0.0},
+				{ xpos, ypos + charHeight, 0.0, 0.0 },{ xpos, ypos, 0.0, 1.0 },{ xpos + charWidth, ypos, 1.0, 1.0 },
+			{ xpos, ypos + charHeight, 0.0, 0.0 },{ xpos + charWidth, ypos, 1.0, 1.0 } ,{ xpos + charWidth, ypos + charHeight, 1.0, 0.0 },
 			};
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
 			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 
+			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, fontChar.TextureID);
 			glUniform1i(glGetUniformLocation(program, "tex"), 0);
-			glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
 			glDrawArrays(GL_TRIANGLES, 0, 6);
+
 
 			textPos.x += (fontChar.Advance >> 6) * scale;
 		}
 	}
+
+	glUseProgram(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	glDisable(GL_CULL_FACE);
-	glDisable(GL_BLEND);
+	//glDisable(GL_BLEND);
 }
 
-GLuint CTextLabel::GenerateTexture(FT_Face face)
+GLuint TextLabel::GeneratTexture(FT_Face face)
 {
 	GLuint texture;
 	glGenTextures(1, &texture);

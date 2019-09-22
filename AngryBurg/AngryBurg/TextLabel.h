@@ -1,53 +1,43 @@
-//#pragma once
+#pragma once
 
-#ifndef TEXTMANAGER_H
-#define TEXTMANAGER_H
-
-//Includes
 #include <glew.h>
 #include <freeglut.h>
 #include <SOIL.h>
 #include <glm.hpp>
-#include <gtc\matrix_transform.hpp>
-#include <gtc\type_ptr.hpp>
+#include "gtc/matrix_transform.hpp"
+#include "gtc/type_ptr.hpp"
 #include <ft2build.h>
 #include FT_FREETYPE_H
-
-//Library
 #include <map>
 #include <string>
 #include <iostream>
-
-//Local Includes
 #include "ShaderLoader.h"
-#include "Util.h"
+#include "ConsoleController.h"
 
 struct FontChar
 {
-	GLuint	TextureID;
+	GLuint TextureID;
 	glm::ivec2 Size;
 	glm::ivec2 Bearing;
 	GLuint Advance;
 };
 
-class Game;
-
-class CTextLabel
+class TextLabel
 {
-
 public:
-	CTextLabel();
-	CTextLabel(std::string newText, std::string newFont, glm::vec2 pos, glm::vec3 color, float scale, glm::vec2 screenSize, std::string _name);
-	~CTextLabel() { Characters.clear(); };
-
+	~TextLabel();
+	TextLabel();
+	TextLabel(glm::vec2 m_screen, std::string text, std::string font, glm::vec2 pos, glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f), float scale = 1.0f);
 	void Render();
 	void SetText(std::string newText) { text = newText; };
 	void SetColor(glm::vec3 newColor) { color = newColor; };
 	void SetScale(GLfloat newScale) { scale = newScale; };
-	void SetPosition(glm::vec2 newPostition) { position = newPostition; };
-private:
-	GLuint GenerateTexture(FT_Face face);
+	void SetPosition(glm::vec2 newPosition) { position = newPosition; };
 
+
+private:
+
+	GLuint GeneratTexture(FT_Face face);
 	std::string text;
 	GLfloat scale;
 	glm::vec3 color;
@@ -56,6 +46,6 @@ private:
 	GLuint VAO, VBO, program;
 	glm::mat4 proj;
 	std::map<GLchar, FontChar> Characters;
+
 };
 
-#endif

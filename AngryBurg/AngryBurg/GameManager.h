@@ -4,6 +4,7 @@
 #include "MeshManager.h"
 #include "Physics.h"
 #include "Audio.h"
+#include "TextLabel.h"
 
 class CMenu;
 class GameObject;
@@ -25,6 +26,8 @@ public:
 
 	glm::vec2 ScreenSize = { 1280, 720 };
 	glm::vec2 MousePosition;
+
+	TextLabel* title;
 
 	void switchScene(Scenes newScene);
 	void Initalize(Physics* physicsWorld);
