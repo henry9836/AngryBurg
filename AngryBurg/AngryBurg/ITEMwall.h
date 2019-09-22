@@ -62,7 +62,7 @@ public:
 
 
 			b2PolygonShape polygonShape;
-			polygonShape.SetAsBox(m_hx, m_hy, m_middlepos, 0);
+			polygonShape.SetAsBox(m_hx/2.5f, m_hy/2.5f, m_middlepos, 0);
 
 
 			b2FixtureDef myFixtureDef;

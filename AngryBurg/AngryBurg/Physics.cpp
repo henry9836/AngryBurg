@@ -24,8 +24,7 @@ void Physics::worldsetup()
 
 	float32 thicknes = 30;
 
-	WallPhysics* wall = new WallPhysics(m_world, b2Vec2(0, -360 + thicknes), 640 , thicknes, 0, b2_dynamicBody); //ground
-	wall->m_body->SetGravityScale(0.0f);
+	WallPhysics* wall = new WallPhysics(m_world, b2Vec2(0, -360 + thicknes), 640 , thicknes, 0, b2_staticBody); //ground
 	Walls.push_back(wall);
 	wall = new WallPhysics(m_world, b2Vec2(0, 360 - thicknes), 640, thicknes, 0, b2_staticBody); //ceiling
 	Walls.push_back(wall);
