@@ -11,9 +11,7 @@
 
 enum Object_Attributes
 {
-	CARD_ENTITY,
-	BAR_ENTITY,
-	ENEMY_ENTITY,
+	SPRITE,
 	NONE,
 };
 
