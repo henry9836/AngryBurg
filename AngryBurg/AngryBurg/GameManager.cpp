@@ -104,6 +104,10 @@ void Game::Tick(float deltaTime)
 		gameObjects.at(i)->Tick(deltaTime, gameObjects.at(i));
 	}
 
+	//Physics
+
+	.Step(deltaTime, 8, 3);
+
 	//Input System
 
 	if (input.CheckKeyDown(27)) { //esc
