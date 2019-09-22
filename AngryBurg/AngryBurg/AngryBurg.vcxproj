@@ -176,9 +176,16 @@
     <ClInclude Include="ITEMwall.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="MeshManager.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="TextManager.h" />
     <ClInclude Include="Util.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="AngryBurg.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="missing.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

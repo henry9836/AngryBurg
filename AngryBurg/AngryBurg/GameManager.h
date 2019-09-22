@@ -25,14 +25,19 @@ public:
 	vector<GameObject*> lvlOneObjects; //lvl1
 	vector<GameObject*> lvlTwoObjects; //lvl2
 
+	GameObject* playerBird;
+	GameObject* sling;
+
+	Physics* physicsWorld;
+
 	glm::vec2 ScreenSize = { 1280, 720 };
 	glm::vec2 MousePosition;
 
 	bool mouseDown = false;
 
 	void switchScene(Scenes newScene);
-	void Initalize(Physics* physicsWorld);
-	void populateObjects(Physics* physicsWorld);
+	void Initalize(Physics* _physicsWorld);
+	void populateObjects();
 
 	void Tick(float deltaTime);
 
