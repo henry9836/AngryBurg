@@ -8,6 +8,10 @@ RenderObject::RenderObject()
 {
 }
 
+RenderObject::~RenderObject()
+{
+}
+
 void RenderObject::Render(Transform* _transform)
 {
 	glUseProgram(this->shaderProgram);
@@ -95,6 +99,7 @@ void RenderObject::SetShader(GLuint _shader)
 
 void TickObject::Tick(float deltaTime, GameObject* _gameObject)
 {
+
 }
 
 BasicObject::BasicObject()
@@ -166,7 +171,129 @@ void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 	//don't know what to put here for physics
 }
 
+RenderText::~RenderText()
+{
+}
+
 void RenderText::Render(Transform* _transform)
 {
 	text->Render();
+}
+
+BirdObject::BirdObject()
+{
+}
+
+BirdObject::BirdObject(RenderClass* r, TickClass* t, Transform _trans, string _name, WallPhysics* _wall, BIRDTYPE _bird, Game* _game)
+{
+	Console_OutputLog(to_wstring("Creating Bird Object: " + _name), LOGINFO);
+	_r = r;
+	_t = t;
+	transform = _trans;
+	name = _name;
+	wall = _wall;
+	transform.position = glm::vec3(wall->m_middlepos.x, wall->m_middlepos.y, 0.0f);
+	transform.rotation = glm::vec3(0.0f, wall->m_angle, 0.0f);
+	transform.scale = glm::vec3(wall->m_hx, wall->m_hy, 0.0f);
+	Birdtype = _bird;
+	game = _game;
+}
+
+BirdObject::~BirdObject()
+{
+	deathMark = true;
+	//remove from all gameobject lists
+	for (size_t i = 0; i < game->gameObjects.size(); i++)
+	{
+		if (game->gameObjects.at(i)->deathMark) {
+			game->gameObjects.erase(game->gameObjects.begin() + i);
+			i--;
+		}
+	}
+
+	for (size_t i = 0; i < game->lvlOneObjects.size(); i++)
+	{
+		if (game->gameObjects.at(i)->deathMark) {
+			game->gameObjects.erase(game->gameObjects.begin() + i);
+			i--;
+		}
+	}
+
+	for (size_t i = 0; i < game->lvlTwoObjects.size(); i++)
+	{
+		if (game->gameObjects.at(i)->deathMark) {
+			game->gameObjects.erase(game->gameObjects.begin() + i);
+			i--;
+		}
+	}
+
+	//Delete references
+
+	delete game;
+	delete wall;
+
+}
+
+PigObject::PigObject()
+{
+}
+
+PigObject::PigObject(RenderClass* r, TickClass* t, Transform _trans, string _name, WallPhysics* _wall, Game* _game)
+{
+	Console_OutputLog(to_wstring("Creating Pig Object: " + _name), LOGINFO);
+	_r = r;
+	_t = t;
+	transform = _trans;
+	name = _name;
+	wall = _wall;
+	transform.position = glm::vec3(wall->m_middlepos.x, wall->m_middlepos.y, 0.0f);
+	transform.rotation = glm::vec3(0.0f, wall->m_angle, 0.0f);
+	transform.scale = glm::vec3(wall->m_hx, wall->m_hy, 0.0f);
+	game = _game;
+}
+
+PigObject::~PigObject()
+{
+	deathMark = true;
+	//remove from all gameobject lists
+	for (size_t i = 0; i < game->gameObjects.size(); i++)
+	{
+		if (game->gameObjects.at(i)->deathMark) {
+			game->gameObjects.erase(game->gameObjects.begin() + i);
+			i--;
+		}
+	}
+
+	for (size_t i = 0; i < game->lvlOneObjects.size(); i++)
+	{
+		if (game->gameObjects.at(i)->deathMark) {
+			game->gameObjects.erase(game->gameObjects.begin() + i);
+			i--;
+		}
+	}
+
+	for (size_t i = 0; i < game->lvlTwoObjects.size(); i++)
+	{
+		if (game->gameObjects.at(i)->deathMark) {
+			game->gameObjects.erase(game->gameObjects.begin() + i);
+			i--;
+		}
+	}
+
+	//Delete references
+
+	delete game;
+	delete wall;
+}
+
+void TickBird::Tick(float deltaTime, BirdObject* _gameObject)
+{
+
+}
+
+void TickPig::Tick(float deltaTime, PigObject* _gameObject)
+{
+	if (_gameObject->health <= 0) {
+		_gameObject->~PigObject();
+	}
 }
