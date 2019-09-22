@@ -1,7 +1,7 @@
 #pragma once
 #include "Physics.h"
 
-class Wall {
+class WallPhysics {
 public:
 	//class member variables
 	b2Body* m_body;
@@ -11,7 +11,7 @@ public:
 	float32 m_angle;
 
 
-	Wall(b2World* world, b2Vec2 middlepos, float32 hx, float32 hy, float32 angle)
+	WallPhysics(b2World* world, b2Vec2 middlepos, float32 hx, float32 hy, float32 angle)
 	{
 		m_body = NULL;
 		m_middlepos = middlepos;
@@ -34,9 +34,7 @@ public:
 		polygonShape.SetAsBox(m_hx, m_hy, m_middlepos, 0);//ground
 		staticBody->CreateFixture(&myFixtureDef);
 
-	}
-	~Wall() {}
+	};
+	~WallPhysics() {};
 
 };
-
-std::vector<Wall*> Walls;
