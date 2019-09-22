@@ -198,6 +198,7 @@ GLuint MeshManager::SetTexture(const char* _TextureFilename)
 	else
 	{
 		Console_OutputLog(L"Failed to load Texture", LOGWARN);
+		return SetTexture("Resources/Textures/missing.png");
 	}
 	//Freeing up data
 	SOIL_free_image_data(image);

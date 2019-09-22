@@ -13,7 +13,7 @@ void Game::switchScene(Scenes newScene)
 	this->currentScene = newScene;
 }
 
-void Game::populateObjects()
+void Game::populateObjects(b2World* physicsWorld)
 {
 	Console_OutputLog(L"Populating Gameobject Lists...", LOGINFO);
 
@@ -22,7 +22,8 @@ void Game::populateObjects()
 	* [ MAINMENU SCENE ]
 	* ==================
 	*/
-	this->gameObjects.push_back(new BasicObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::CARD_ENTITY), MeshManager::SetTexture("Resources/Textures/missing.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickObject, Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(100.0f, 100.0f, 100.0f)), "Test Obj"));
+	this->gameObjects.push_back(new BasicObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::CARD_ENTITY), MeshManager::SetTexture("Resources/Textures/peter.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(100.0f, 100.0f, 100.0f)), "Test Obj"));
+	this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::CARD_ENTITY), MeshManager::SetTexture("Resources/Textures/peter.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Test Wall", new WallPhysics(physicsWorld, b2Vec2(20, 20), 1, 20, 0)));
 
 	/*
 	* ==============
@@ -38,11 +39,11 @@ void Game::populateObjects()
 
 }
 
-void Game::Initalize()
+void Game::Initalize(b2World* physicsWorld)
 {
 	Console_OutputLog(L"Initalizing Game...", LOGINFO);
 
-	populateObjects();
+	populateObjects(physicsWorld);
 
 	Console_OutputLog(L"Done.", LOGINFO);
 }
