@@ -49,10 +49,7 @@ void Update() {
 	pasttime = currentTime;
 	FlashRed(&backColor, deltaTime);
 
-	for (size_t i = 0; i < game->gameObjects.size(); i++)
-	{
-		game->gameObjects.at(i)->Tick(deltaTime, game->gameObjects.at(i));
-	}
+	game->Tick(deltaTime);
 
 	Render();
 }
@@ -92,8 +89,6 @@ void InitalizeOpenGL(int argc, char* argv[])
 	MeshManager::GetInstance();
 
 	game->Initalize(&physics);
-
-
 
 	glutDisplayFunc(Render);
 

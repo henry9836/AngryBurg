@@ -4,6 +4,7 @@
 #include "MeshManager.h"
 #include "Physics.h"
 #include "Audio.h"
+#include "Input.h"
 
 class CMenu;
 class GameObject;
@@ -30,6 +31,8 @@ public:
 	void switchScene(Scenes newScene);
 	void Initalize(Physics* physicsWorld);
 	void populateObjects(Physics* physicsWorld);
+
+	void Tick(float deltaTime);
 
 };
 
