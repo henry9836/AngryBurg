@@ -163,7 +163,7 @@
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="MeshManager.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
-    <ClCompile Include="TextLabel.cpp" />
+    <ClCompile Include="TextManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Audio.h" />
@@ -177,7 +177,7 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="ShaderLoader.h" />
-    <ClInclude Include="TextLabel.h" />
+    <ClInclude Include="TextManager.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

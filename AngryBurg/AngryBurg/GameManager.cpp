@@ -24,15 +24,17 @@ void Game::populateObjects(Physics* physicsWorld)
 	* [ MAINMENU SCENE ]
 	* ==================
 	*/
-	//this->gameObjects.push_back(new BasicObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/background.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, -0.9f), glm::vec3(0, 0, 0), glm::vec3(1000.0f, 1000.0f, 1000.0f)), "BackDrop"));
+
+	
+
+	this->gameObjects.push_back(new BasicObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/background.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, -0.9f), glm::vec3(0, 0, 0), glm::vec3(1000.0f, 1000.0f, 1000.0f)), "BackDrop"));
 	this->gameObjects.push_back(new BasicObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/logo.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(300.0f, 300.0f, 300.0f)), "Test Obj"));
 
 	for (int i = 0; i < physicsWorld->Walls.size(); i++)
 	{
 		this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/peter.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Test Wall", new WallPhysics(physicsWorld->m_world, physicsWorld->Walls.at(i)->m_middlepos, physicsWorld->Walls.at(i)->m_hx, physicsWorld->Walls.at(i)->m_hy, physicsWorld->Walls.at(i)->m_angle)));
 	}
-
-	title = new TextLabel(ScreenSize, "Press Space To Continue", "Resources/Fonts/angrybirds.ttf", glm::vec2(0.0f, 0.0f));
+	
 	
 	/*
 	* ==============
@@ -45,6 +47,29 @@ void Game::populateObjects(Physics* physicsWorld)
 	/*
 	* ==============
 	* [ LVL2 SCENE ]
+	* ==============
+	*/
+
+	/*
+	* ==================
+	* [ MAINMENU TEXT ]
+	* ==================
+	*/
+
+	this->gameObjects.push_back(new BasicObject(new RenderText(new CTextLabel("Press Space To Continue", "Resources/Fonts/angrybirds.ttf", glm::vec2(-600.0f, -350.0f), glm::vec3(0.0f, 0.0f, 0.0f), 1.0f, this, "Press Space To Continue")), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(100.0f, 100.0f, 100.0f)), "Title Text"));
+	this->gameObjects.push_back(new BasicObject(new RenderText(new CTextLabel("Angry Birbs", "Resources/Fonts/angrybirds.ttf", glm::vec2(-600.0f, 300.0f), glm::vec3(1.0f, 0.0f, 0.0f), 1.0f, this, "Title Text")), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(100.0f, 100.0f, 100.0f)), "Title Text"));
+
+	/*
+	* ==============
+	* [ LVL1 TEXT ]
+	* ==============
+	*/
+
+
+
+	/*
+	* ==============
+	* [ LVL2 TEXT ]
 	* ==============
 	*/
 
