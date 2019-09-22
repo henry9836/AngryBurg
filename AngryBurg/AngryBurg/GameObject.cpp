@@ -126,6 +126,9 @@ WallObject::WallObject(RenderClass* r, TickClass* t, Transform _trans, string _n
 	transform = _trans;
 	name = _name;
 	wall = _wall;
+	transform.position = glm::vec3(wall->m_middlepos.x, wall->m_middlepos.y, 0.0f);
+	transform.rotation = glm::vec3(0.0f, wall->m_angle, 0.0f);
+	transform.scale = glm::vec3(wall->m_hx, wall->m_hy, 0.0f);
 }
 
 WallObject::~WallObject()
