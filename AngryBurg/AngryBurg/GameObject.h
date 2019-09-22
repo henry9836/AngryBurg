@@ -86,11 +86,12 @@ public:
 
 	bool deathMark = false;
 	Transform transform;
+	string name;
 protected:
 	
 	RenderClass* _r;
 	TickClass* _t;
-	string name;
+	
 };
 
 class BasicObject : public GameObject {

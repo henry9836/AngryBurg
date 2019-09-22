@@ -142,33 +142,21 @@ WallObject::~WallObject()
 
 void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 {
+
 	Console_OutputLog(L"tock", LOGINFO);
-
-
-	float32 timeStep = 1 / 20.0f;      //the length of time passed to simulate (seconds)
-	int32 velocityIterations = 8;   //how strongly to correct velocity
-	int32 positionIterations = 3;   //how strongly to correct position
 
 	WallPhysics* wall = _gameObject->wall;
 
-	wall->m_b2world.Step(timeStep, velocityIterations, positionIterations);
-
-
-
-
 	wall->m_body->ApplyLinearImpulse(b2Vec2(-9.81f, 0), wall->m_body->GetWorldCenter(), true);
 
-	float32 temprot =  wall->m_body->GetAngle();
-	//b2Vec2 temppos = wall->m_body->GetLocalPoint();
+	//float32 temprot =  wall->m_body->GetAngle();
+	glm::vec3 temppos = glm::vec3(wall->m_body->GetWorldPoint(wall->m_body->GetPosition()).x, wall->m_body->GetWorldPoint(wall->m_body->GetPosition()).y, 0.1f);
 
-	//_gameObject->GetTransform().position = glm::vec3(temppos.x, temppos.y, 0.0f);
-	_gameObject->GetTransform().rotation = glm::vec3(0.0f, 0.0f, temprot);
+	_gameObject->GetTransform().position = glm::vec3(temppos.x, temppos.y, 0.0f);
+	//_gameObject->GetTransform().rotation = glm::vec3(0.0f, 0.0f, temprot);
 
-
-	Console_OutputLog(to_wstring(_gameObject->GetTransform().position.x) + L" "+ to_wstring(_gameObject->GetTransform().position.y), LOGINFO);
+	Console_OutputLog(to_wstring("Object " + _gameObject->name + ": ")+to_wstring(_gameObject->GetTransform().position.x) + L" "+ to_wstring(_gameObject->GetTransform().position.y) + L"|" + to_wstring(wall->m_body->GetPosition().x) + L" " + to_wstring(wall->m_body->GetPosition().y), LOGINFO);
 	//Console_OutputLog(to_wstring(_gameObject->GetTransform().rotation.z), LOGINFO);
-
-	//don't know what to put here for physics
 }
 
 RenderText::~RenderText()
