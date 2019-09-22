@@ -7,6 +7,7 @@
 
 
 class GameObject;
+class CTextLabel;
 
 class RenderClass {
 public:
@@ -35,6 +36,18 @@ public:
 	GLuint shaderProgram;
 
 };
+
+class RenderText : public RenderClass {
+public:
+	RenderText(CTextLabel* _text) : text(_text) {};
+
+	virtual void Render(Transform* _transform);
+	virtual void SetTexture(GLuint _tex) {};
+	virtual void SetShader(GLuint _shader) {};
+
+	CTextLabel* text;
+};
+
 
 class TickClass {
 public:
@@ -111,3 +124,5 @@ public:
 	virtual void Tick(float deltaTime, GameObject* _gameObject);
 };
 
+
+#include "TextManager.h"

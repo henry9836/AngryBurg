@@ -4,9 +4,11 @@
 #include "MeshManager.h"
 #include "Physics.h"
 #include "Audio.h"
+#include "Input.h"
 
 class CMenu;
 class GameObject;
+class CTextLabel;
 
 class Game {
 public:
@@ -14,7 +16,7 @@ public:
 	Game();
 	~Game();
 
-	Scenes currentScene;
+	Scenes currentScene = SCENE_MAIN;
 	CMenu* StartMenu;
 
 	//scenes
@@ -30,6 +32,9 @@ public:
 	void Initalize(Physics* physicsWorld);
 	void populateObjects(Physics* physicsWorld);
 
+	void Tick(float deltaTime);
+
 };
 
 #include "GameObject.h"
+#include "TextManager.h"

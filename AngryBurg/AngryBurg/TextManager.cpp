@@ -6,7 +6,7 @@ CTextLabel::CTextLabel()
 
 }
 //Init the class fully
-CTextLabel::CTextLabel(std::string newText, std::string newFont, glm::vec2 pos, glm::vec3 color, float scale, glm::vec2 screenSize, std::string _name)
+CTextLabel::CTextLabel(std::string newText, std::string newFont, glm::vec2 pos, glm::vec3 color, float scale, Game* game, std::string _name)
 {
 	Console_OutputLog(to_wstring("Creating Text Object: " + _name), LOGINFO);
 	text = newText;
@@ -14,8 +14,8 @@ CTextLabel::CTextLabel(std::string newText, std::string newFont, glm::vec2 pos, 
 	SetScale(scale);
 	SetPosition(pos);
 
-	GLfloat halfScreenWidth = (GLfloat)screenSize.x * 0.5f;
-	GLfloat halfScreenHeight = (GLfloat)screenSize.y * 0.5f;
+	GLfloat halfScreenWidth = (GLfloat)game->ScreenSize.x * 0.5f;
+	GLfloat halfScreenHeight = (GLfloat)game->ScreenSize.y * 0.5f;
 	proj = glm::ortho(-halfScreenWidth, halfScreenWidth, -halfScreenHeight, halfScreenHeight);
 	program = ShaderLoader::CreateProgram("Resources/Shaders/Text.vs", "Resources/Shaders/Text.fs");
 
@@ -72,6 +72,8 @@ CTextLabel::CTextLabel(std::string newText, std::string newFont, glm::vec2 pos, 
 //Renders the text on to the screen
 void CTextLabel::Render()
 {
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glUseProgram(program);
@@ -116,6 +118,7 @@ void CTextLabel::Render()
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
+	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_CULL_FACE);
 	glDisable(GL_BLEND);
 }

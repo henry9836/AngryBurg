@@ -153,7 +153,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Graphics.cpp" />
-    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp">
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp17</LanguageStandard>
       <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp17</LanguageStandard>
@@ -172,9 +172,9 @@
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="ITEMwall.h" />
     <ClInclude Include="Physics.h" />
-    <ClInclude Include="InputManager.h" />
     <ClInclude Include="MeshManager.h" />
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="TextManager.h" />
