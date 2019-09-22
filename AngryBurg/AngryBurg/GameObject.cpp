@@ -122,7 +122,7 @@ WallObject::WallObject(RenderClass* r, TickClass* t, Transform _trans, string _n
 {
 	Console_OutputLog(to_wstring("Creating Wall Object: " + _name), LOGINFO);
 	_r = r;
-	_t = t;
+	_t = new TickWall();
 	transform = _trans;
 	name = _name;
 	wall = _wall;
@@ -135,7 +135,7 @@ WallObject::~WallObject()
 {
 }
 
-void TickWall::Tick(float deltaTime, WallObject* _gameObject)
+void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 {
 	Console_OutputLog(L"tock", LOGINFO);
 	WallPhysics* wall =  _gameObject->wall;

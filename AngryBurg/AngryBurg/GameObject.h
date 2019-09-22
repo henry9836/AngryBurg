@@ -65,6 +65,8 @@ public:
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
 
 	Transform& GetTransform() { return transform; };
+	
+	WallPhysics* wall;
 
 protected:
 	Transform transform;
@@ -86,6 +88,7 @@ public:
 	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
 
+	
 };
 
 class WallObject : public GameObject {
@@ -99,12 +102,12 @@ public:
 
 	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
-	WallPhysics* wall;
+	
 };
 
 
 class TickWall : public TickClass {
 public:
-	virtual void Tick(float deltaTime, WallObject* _gameObject);
+	virtual void Tick(float deltaTime, GameObject* _gameObject);
 };
 
