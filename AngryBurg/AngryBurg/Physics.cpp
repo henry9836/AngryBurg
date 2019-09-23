@@ -22,22 +22,22 @@ void Physics::worldsetup()
 
 	float32 thicknes = 640;
 
-	WallPhysics* wall = new WallPhysics(m_world, b2Vec2(0, -300), 500, 50, 45, b2_staticBody); //ground
+	WallPhysics* wall = new WallPhysics(m_world, b2Vec2(0, -950), 650, 650, 45, b2_staticBody, SCENE_LVL1, WallPhysics::GROUND); //ground
 	Walls.push_back(wall);
 
-	wall = new WallPhysics(m_world, b2Vec2(300, 100), 50, 50, 10, b2_dynamicBody); //birb
+	wall = new WallPhysics(m_world, b2Vec2(300, 100), 50, 50, 10, b2_dynamicBody, SCENE_LVL1, WallPhysics::BIRD); //birb
 	Walls.push_back(wall);
 
-	wall = new WallPhysics(m_world, b2Vec2(0, 100), 50, 50, 10, b2_dynamicBody); //piig
+	wall = new WallPhysics(m_world, b2Vec2(0, 100), 50, 50, 10, b2_dynamicBody, SCENE_LVL1, WallPhysics::PIG); //piig
 	Walls.push_back(wall);
 
-	wall = new WallPhysics(m_world, b2Vec2(-150, 0), 30, 200, 0, b2_dynamicBody);// obsicle1
+	wall = new WallPhysics(m_world, b2Vec2(-150, 0), 30, 200, 0, b2_dynamicBody, SCENE_LVL1, WallPhysics::DEFAULT);// obsicle1
 	Walls.push_back(wall);
 
-	wall = new WallPhysics(m_world, b2Vec2(-300, 0), 30, 200, 0, b2_dynamicBody);// obsicle1
+	wall = new WallPhysics(m_world, b2Vec2(-300, 0), 30, 200, 0, b2_dynamicBody, SCENE_LVL1, WallPhysics::STRONGWALL);// obsicle1
 	Walls.push_back(wall);
 
-	wall = new WallPhysics(m_world, b2Vec2(-150, 300), 200, 30, 0, b2_dynamicBody);// obsicle1
+	wall = new WallPhysics(m_world, b2Vec2(-150, 300), 200, 30, 0, b2_dynamicBody, SCENE_LVL1, WallPhysics::DEFAULT);// obsicle1
 	Walls.push_back(wall);
 
 

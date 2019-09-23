@@ -57,7 +57,15 @@ void Render() {
 
 	for (size_t i = 0; i < game->gameObjects.size(); i++)
 	{
-		game->gameObjects.at(i)->Render();
+		if (game->gameObjects.at(i)->wall == nullptr) {
+			game->gameObjects.at(i)->Render();
+		}
+		else if (game->gameObjects.at(i)->wall->assignedScene == GLOBAL) {
+			game->gameObjects.at(i)->Render();
+		}
+		else if (game->gameObjects.at(i)->wall->assignedScene == game->currentScene) {
+			game->gameObjects.at(i)->Render();
+		}
 	}
 
 	if (game->currentScene == SCENE_MAIN) {
