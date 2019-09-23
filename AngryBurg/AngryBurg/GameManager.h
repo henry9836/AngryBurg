@@ -29,6 +29,7 @@ public:
 	GameObject* sling;
 
 	Physics* physicsWorld;
+	Physics* physicsWorld2;
 
 	glm::vec2 ScreenSize = { 1280, 720 };
 	glm::vec2 MousePosition;
