@@ -150,10 +150,9 @@ void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 	if (wall->m_type == b2_dynamicBody) {
 
 		//wall->m_body->ApplyLinearImpulse(b2Vec2(0.001f, 1.1f), wall->m_body->GetWorldCenter(), true);
-		if (_gameObject->name == "birb")
+		if (wall->wallType == WallPhysics::BIRD)
 		{
 			wall->m_body->SetAngularVelocity(10.0f);
-
 		}
 
 		float32 temprot =  wall->m_body->GetAngle();

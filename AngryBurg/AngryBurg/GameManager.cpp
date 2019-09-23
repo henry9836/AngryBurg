@@ -41,24 +41,7 @@ void Game::populateObjects()
 
 	for (int i = 0; i < physicsWorld->Walls.size(); i++)
 	{
-		string name;
-		if (i == 0)
-		{
-			name = "ground";
-		}
-		else if (i == 1)
-		{
-			name = "birb";
-		}
-		else if (i == 2)
-		{
-			name = "piig";
-		}
-		else
-		{
-			name = "obsticle";
-		}
-		this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/stone.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), name , physicsWorld->Walls.at(i)));
+		this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/stone.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Unknown Wall Type Object" , physicsWorld->Walls.at(i)));
 	}
 	
 	/*
@@ -147,7 +130,7 @@ void Game::Tick(float deltaTime)
 	}
 	else if (currentScene == SCENE_LVL1) {
 		if (playerBird == nullptr) {
-			lvlOneObjects.push_back(new BirdObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/bird.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(sling->transform.position, glm::vec3(0, 0, 0), glm::vec3(20.0f, 20.0f, 1.0f)), "Angry Bird", new WallPhysics(physicsWorld->m_world, physicsWorld->Walls.at(0)->m_middlepos, physicsWorld->Walls.at(0)->m_hx, physicsWorld->Walls.at(0)->m_hy, physicsWorld->Walls.at(0)->m_angle, b2_dynamicBody), BirdObject::DEFAULT, this));
+			lvlOneObjects.push_back(new BirdObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/bird.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(sling->transform.position, glm::vec3(0, 0, 0), glm::vec3(20.0f, 20.0f, 1.0f)), "Angry Bird", new WallPhysics(physicsWorld->m_world, physicsWorld->Walls.at(1)->m_middlepos, physicsWorld->Walls.at(1)->m_hx, physicsWorld->Walls.at(1)->m_hy, physicsWorld->Walls.at(1)->m_angle, b2_dynamicBody, GLOBAL, WallPhysics::BIRD), BirdObject::DEFAULT, this));
 			playerBird = lvlOneObjects.back();
 		}
 

@@ -82,7 +82,8 @@ public:
 
 	Transform& GetTransform() { return transform; };
 	
-	WallPhysics* wall;
+	WallPhysics* wall = nullptr;
+
 
 	bool deathMark = false;
 	Transform transform;

@@ -25,7 +25,8 @@ using namespace std;
 enum Scenes {
 	SCENE_MAIN,
 	SCENE_LVL1,
-	SCENE_LVL2
+	SCENE_LVL2,
+	GLOBAL
 };
 
 

@@ -1,8 +1,15 @@
 #pragma once
 #include "Physics.h"
+#include "Util.h"
 
 class WallPhysics {
 public:
+	enum WallTypes {
+		DEFAULT,
+		BIRD,
+		PIG
+	};
+
 	//class member variables
 	b2Body* m_body;
 	b2Vec2 m_middlepos;
@@ -11,10 +18,14 @@ public:
 	float32 m_angle;
 	b2BodyType m_type;
 	b2World m_b2world = b2World(b2Vec2 (0.0f, 0.0f));
+	Scenes assignedScene = GLOBAL;
+	WallTypes wallType = DEFAULT;
 
-
-	WallPhysics(b2World* world, b2Vec2 middlepos, float32 hx, float32 hy, float32 angle, b2BodyType type)
+	WallPhysics(b2World* world, b2Vec2 middlepos, float32 hx, float32 hy, float32 angle, b2BodyType type, Scenes _scene, WallTypes _wallType)
 	{
+		assignedScene = _scene;
+		wallType = _wallType;
+
 		if (type == b2_staticBody) //static
 		{
 			m_body = NULL;
