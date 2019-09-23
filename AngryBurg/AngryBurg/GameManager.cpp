@@ -38,6 +38,7 @@ void Game::populateObjects()
 
 	//this->mainObjects.push_back(new BasicObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/logo.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(250.0f, 250.0f, 1.0f)), "Test Obj"));
 
+
 	for (int i = 0; i < physicsWorld->Walls.size(); i++)
 	{
 		string name;
@@ -48,6 +49,10 @@ void Game::populateObjects()
 		else if (i == 1)
 		{
 			name = "birb";
+		}
+		else if (i == 2)
+		{
+			name = "piig";
 		}
 		else
 		{
