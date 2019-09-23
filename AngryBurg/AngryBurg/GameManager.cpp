@@ -40,7 +40,20 @@ void Game::populateObjects()
 
 	for (int i = 0; i < physicsWorld->Walls.size(); i++)
 	{
-		this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/stone.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Test Wall" + to_string(i), physicsWorld->Walls.at(i)));
+		string name;
+		if (i == 0)
+		{
+			name = "ground";
+		}
+		else if (i == 1)
+		{
+			name = "birb";
+		}
+		else
+		{
+			name = "obsticle";
+		}
+		this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/stone.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), name , physicsWorld->Walls.at(i)));
 	}
 	
 	/*

@@ -150,8 +150,12 @@ void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 	if (wall->m_type == b2_dynamicBody) {
 
 		//wall->m_body->ApplyLinearImpulse(b2Vec2(0.001f, 1.1f), wall->m_body->GetWorldCenter(), true);
-		wall->m_body->SetAngularVelocity(100.0f);
-		float32 teem = wall->m_body->GetAngularVelocity();
+		if (_gameObject->name == "birb")
+		{
+			wall->m_body->SetAngularVelocity(10.0f);
+
+		}
+
 		float32 temprot =  wall->m_body->GetAngle();
 		glm::vec3 temppos = glm::vec3(wall->m_body->GetPosition().x, wall->m_body->GetPosition().y, 0.1f);
 
