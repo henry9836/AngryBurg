@@ -22,7 +22,7 @@ void Physics::worldsetup()
 
 	float32 thicknes = 640;
 
-	WallPhysics* wall = new WallPhysics(m_world, b2Vec2(0, -300), 500, 50, 45, b2_staticBody, SCENE_LVL1, WallPhysics::GROUND); //ground
+	WallPhysics* wall = new WallPhysics(m_world, b2Vec2(0, -950), 650, 650, 45, b2_staticBody, SCENE_LVL1, WallPhysics::GROUND); //ground
 	Walls.push_back(wall);
 
 	wall = new WallPhysics(m_world, b2Vec2(300, 100), 50, 50, 10, b2_dynamicBody, SCENE_LVL1, WallPhysics::BIRD); //birb
