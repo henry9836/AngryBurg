@@ -152,7 +152,12 @@ void Game::Tick(float deltaTime)
 		}
 
 		if (mouseDown) {
-			playerBird->transform.position = glm::vec3(MousePosition.x, MousePosition.y ,0.5);
+			if (findDistance(MousePosition, glm::vec2(sling->transform.position.x, sling->transform.position.y)) < 125) {
+				playerBird->transform.position = glm::vec3(MousePosition.x, MousePosition.y ,0.5);
+			}
+			else {
+				wcout << L"Not in range: " << findDistance(MousePosition, glm::vec2(sling->transform.position.x, sling->transform.position.y)) << endl;
+			}
 			Console_OutputLog(L"Clicked", LOGINFO);
 		}
 	}
