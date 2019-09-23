@@ -30,6 +30,36 @@ void Game::populateObjects()
 	this->gameObjects.push_back(new BasicObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/background.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, -0.9f), glm::vec3(0, 0, 0), glm::vec3(1000.0f, 1000.0f, 1.0f)), "BackDrop"));
 	
 	/*
+	* ===========
+	* [ PHYSICS ]
+	* ===========
+	*/
+
+	for (int i = 0; i < physicsWorld->Walls.size(); i++)
+	{
+
+		if (physicsWorld->Walls.at(i)->wallType == WallPhysics::DEFAULT) {
+			this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/wood.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Default Physics Object", physicsWorld->Walls.at(i)));
+		}
+		else if (physicsWorld->Walls.at(i)->wallType == WallPhysics::BIRD) {
+			this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/bird.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Bird Physics Object", physicsWorld->Walls.at(i)));
+		}
+		else if (physicsWorld->Walls.at(i)->wallType == WallPhysics::PIG) {
+			this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/pig.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Pig Physics Object", physicsWorld->Walls.at(i)));
+		}
+		else if (physicsWorld->Walls.at(i)->wallType == WallPhysics::STRONGWALL) {
+			this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/stone.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Stone Physics Object", physicsWorld->Walls.at(i)));
+		}
+		else if (physicsWorld->Walls.at(i)->wallType == WallPhysics::GROUND) {
+			this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/ground.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Ground Physics Object", physicsWorld->Walls.at(i)));
+		}
+		else {
+			this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/wood.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Unknown Physics Object", physicsWorld->Walls.at(i)));
+		}
+
+	}
+	
+	/*
 	* ==================
 	* [ MAINMENU SCENE ]
 	* ==================
@@ -39,11 +69,7 @@ void Game::populateObjects()
 	//this->mainObjects.push_back(new BasicObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/logo.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(250.0f, 250.0f, 1.0f)), "Test Obj"));
 
 
-	for (int i = 0; i < physicsWorld->Walls.size(); i++)
-	{
-		this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/stone.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Unknown Wall Type Object" , physicsWorld->Walls.at(i)));
-	}
-	
+
 	/*
 	* ==============
 	* [ LVL1 SCENE ]
@@ -114,7 +140,7 @@ void Game::Tick(float deltaTime)
 	//Physics
 
 	physicsWorld->m_world->Step(1 / 60.0f, 6, 2);
-
+	
 	//Input System
 
 	if (input.CheckKeyDown(27)) { //esc

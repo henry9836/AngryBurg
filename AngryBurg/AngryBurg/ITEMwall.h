@@ -7,7 +7,9 @@ public:
 	enum WallTypes {
 		DEFAULT,
 		BIRD,
-		PIG
+		PIG,
+		STRONGWALL,
+		GROUND
 	};
 
 	//class member variables
