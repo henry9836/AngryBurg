@@ -29,12 +29,12 @@ public:
 
 			b2BodyDef myBodyDef;
 			myBodyDef.type = type;
-			myBodyDef.position.Set(m_hx, m_hy);
+			myBodyDef.position.Set(m_middlepos.x, m_middlepos.y);
 			m_body = world->CreateBody(&myBodyDef);
 
 
 			b2PolygonShape polygonShape;
-			polygonShape.SetAsBox(m_hx, m_hy, m_middlepos, 0);//ground
+			polygonShape.SetAsBox(m_hx, m_hy);//, m_middlepos, 0);//ground
 
 
 			b2FixtureDef myFixtureDef;
@@ -57,13 +57,13 @@ public:
 
 			b2BodyDef myBodyDef;
 			myBodyDef.type = type;
-			myBodyDef.position.Set(m_hx, m_hy);
+			myBodyDef.position.Set(m_middlepos.x, m_middlepos.y);
 			m_body = world->CreateBody(&myBodyDef);
 
 
 			b2PolygonShape polygonShape;
 			float32 scaler = 1 / 64.0f;
-			polygonShape.SetAsBox(m_hx*scaler, m_hy * scaler, m_middlepos, 0);
+			polygonShape.SetAsBox(m_hx, m_hy);// , m_middlepos, 0);
 
 
 			b2FixtureDef myFixtureDef;
