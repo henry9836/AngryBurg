@@ -138,9 +138,12 @@ void Game::Tick(float deltaTime)
 	}
 
 	//Physics
-
-	physicsWorld->m_world->Step(1 / 60.0f, 6, 2);
-	
+	if (currentScene == SCENE_LVL1) {
+		physicsWorld->m_world->Step(1 / 60.0f, 6, 2);
+	}
+	else if (currentScene == SCENE_LVL2) {
+		physicsWorld->m_world2->Step(1 / 60.0f, 6, 2);
+	}
 	//Input System
 
 	if (input.CheckKeyDown(27)) { //esc
