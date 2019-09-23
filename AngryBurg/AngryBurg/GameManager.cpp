@@ -43,6 +43,7 @@ void Game::populateObjects()
 		}
 		else if (physicsWorld->Walls.at(i)->wallType == WallPhysics::BIRD) {
 			this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/bird.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Bird Physics Object", physicsWorld->Walls.at(i)));
+			playerBird = gameObjects.back();
 		}
 		else if (physicsWorld->Walls.at(i)->wallType == WallPhysics::PIG) {
 			this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/pig.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Pig Physics Object", physicsWorld->Walls.at(i)));
@@ -164,7 +165,9 @@ void Game::Tick(float deltaTime)
 		}
 
 		if (mouseDown) {
-			playerBird->transform.position = glm::vec3(MousePosition.x, MousePosition.y ,0.5);
+			//playerBird->transform.position = glm::vec3(MousePosition.x, MousePosition.y ,0.5);
+			float scaler = (1.0f / 64.0f);
+			playerBird->wall->m_body->SetTransform(b2Vec2(MousePosition.x*scaler, MousePosition.y*scaler), playerBird->wall->m_body->GetAngle());
 			Console_OutputLog(L"Clicked", LOGINFO);
 		}
 	}
