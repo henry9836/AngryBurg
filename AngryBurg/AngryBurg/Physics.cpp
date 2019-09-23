@@ -20,15 +20,26 @@ void Physics::worldsetup()
 	m_world = new b2World(gravity);
 
 
+	float32 thicknes = 640;
 
-	WallPhysics* wall = new WallPhysics(m_world, b2Vec2(0, 0), 20 , 5, 0); //ground
+	WallPhysics* wall = new WallPhysics(m_world, b2Vec2(0, -300), 500, 50, 45, b2_staticBody); //ground
 	Walls.push_back(wall);
-	wall = new WallPhysics(m_world, b2Vec2(0, 40), 20, 5, 0); //ceiling
+
+	wall = new WallPhysics(m_world, b2Vec2(300, 100), 50, 50, 10, b2_dynamicBody); //birb
 	Walls.push_back(wall);
-	wall = new WallPhysics(m_world, b2Vec2(-20, 20), 5, 20, 0); //left wall
+
+	wall = new WallPhysics(m_world, b2Vec2(0, 100), 50, 50, 10, b2_dynamicBody); //piig
 	Walls.push_back(wall);
-	wall = new WallPhysics(m_world, b2Vec2(20, 20), 5, 20, 0); //right wall
+
+	wall = new WallPhysics(m_world, b2Vec2(-150, 0), 30, 200, 0, b2_dynamicBody);// obsicle1
 	Walls.push_back(wall);
+
+	wall = new WallPhysics(m_world, b2Vec2(-300, 0), 30, 200, 0, b2_dynamicBody);// obsicle1
+	Walls.push_back(wall);
+
+	wall = new WallPhysics(m_world, b2Vec2(-150, 300), 200, 30, 0, b2_dynamicBody);// obsicle1
+	Walls.push_back(wall);
+
 
 	Console_OutputLog(L"Box2D Setup Done.", LOGINFO);
 }

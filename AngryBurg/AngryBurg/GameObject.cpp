@@ -70,7 +70,8 @@ void RenderObject::Render(Transform* _transform)
 	//auto MVP = game->camera.getVP() * cardData.ModelMatrix;
 	int halfw = (int)game->ScreenSize.x / 2;
 	int halfh = (int)game->ScreenSize.y / 2;
-	auto MVP = glm::ortho<float>((float)-halfw, (float)halfw, (float)-halfh, (float)halfh, 0.1f, 1000.0f) * glm::translate(glm::mat4(), glm::vec3(0, 0, -1)) * ModelMatrix;
+	// auto MVP = glm::ortho<float>((float)-halfw, (float)halfw, (float)-halfh, (float)halfh, 0.1f, 1000.0f) * glm::translate(glm::mat4(), glm::vec3(0, 0, -1)) * ModelMatrix;
+	auto MVP = glm::ortho<float>((float)-halfw, (float)halfw, (float)-halfh, (float)halfh, 0.1f, 1000.0f) * glm::lookAt(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(0.0f, 1.0f, 0.0f)) * ModelMatrix;
 
 	glUniformMatrix4fv(glGetUniformLocation(this->shaderProgram, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
 	glUniformMatrix4fv(glGetUniformLocation(this->shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(ModelMatrix));
@@ -127,12 +128,12 @@ WallObject::WallObject(RenderClass* r, TickClass* t, Transform _trans, string _n
 {
 	Console_OutputLog(to_wstring("Creating Wall Object: " + _name), LOGINFO);
 	_r = r;
-	_t = t;
+	_t = new TickWall();
 	transform = _trans;
 	name = _name;
 	wall = _wall;
 	transform.position = glm::vec3(wall->m_middlepos.x, wall->m_middlepos.y, 0.0f);
-	transform.rotation = glm::vec3(0.0f, wall->m_angle, 0.0f);
+	transform.rotation = glm::vec3(0.0f,0.0f , wall->m_angle);
 	transform.scale = glm::vec3(wall->m_hx, wall->m_hy, 0.0f);
 }
 
@@ -142,7 +143,39 @@ WallObject::~WallObject()
 
 void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 {
-	//don't know what to put here for physics
+
+	WallPhysics* wall = _gameObject->wall;
+	float32 scalar = 64.0f;
+
+	if (wall->m_type == b2_dynamicBody) {
+
+		//wall->m_body->ApplyLinearImpulse(b2Vec2(0.001f, 1.1f), wall->m_body->GetWorldCenter(), true);
+		if (_gameObject->name == "birb")
+		{
+			wall->m_body->SetAngularVelocity(10.0f);
+
+		}
+
+		float32 temprot =  wall->m_body->GetAngle();
+		glm::vec3 temppos = glm::vec3(wall->m_body->GetPosition().x, wall->m_body->GetPosition().y, 0.1f);
+
+		
+
+		_gameObject->GetTransform().position = glm::vec3(temppos.x * scalar, temppos.y * scalar, 0.5f);
+		_gameObject->GetTransform().rotation = glm::vec3(0.0f, 0.0f, glm::degrees(temprot));
+		_gameObject->transform.scale = glm::vec3(wall->m_hx * scalar, wall->m_hy * scalar, 1.0f);
+
+		Console_OutputLog(to_wstring("Object " + _gameObject->name + ": ") + to_wstring(_gameObject->GetTransform().position.x) + L" " + to_wstring(_gameObject->GetTransform().position.y) + L"|" + to_wstring(wall->m_body->GetPosition().x) + L" " + to_wstring(wall->m_body->GetPosition().y), LOGINFO);
+		//Console_OutputLog(to_wstring(_gameObject->GetTransform().rotation.z), LOGINFO);
+	}
+	else if (wall->m_type == b2_staticBody) {
+		float32 temprot = wall->m_body->GetAngle();
+		glm::vec3 temppos = glm::vec3(wall->m_body->GetPosition().x, wall->m_body->GetPosition().y, 0.1f);
+
+		_gameObject->GetTransform().position = glm::vec3(temppos.x * scalar, temppos.y * scalar, 0.5f);
+		_gameObject->GetTransform().rotation = glm::vec3(0.0f, 0.0f, temprot);
+		_gameObject->transform.scale = glm::vec3(wall->m_hx * scalar, wall->m_hy * scalar, 1.0f);
+	}
 }
 
 RenderText::~RenderText()

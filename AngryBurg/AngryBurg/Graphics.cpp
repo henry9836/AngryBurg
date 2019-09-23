@@ -14,14 +14,15 @@ void mouseMovement(int x, int y) {
 	/*float aX = (float(x) - (game->ScreenSize.x / 2)) / (game->ScreenSize.x / 2);
 	float aY = (float(y) - (game->ScreenSize.y / 2)) / (game->ScreenSize.y / 2);*/
 	float aX = (float(x) - (game->ScreenSize.x / 2)) / 1;
-	float aY = (float(y) - (game->ScreenSize.y / 2)) / 1;
+	float aY = -(float(y) - (game->ScreenSize.y / 2)) / 1;
 	//wcout << L"Adjusted X:" << aX << L" Y:" << aY << endl;
 	game->MousePosition = { aX, aY };
 }
 
 void mouse(int button, int state, int x, int y) { //Click
 	if (!game->mouseDown) {
-		//wcout << "Mouse Clicked: " << button << endl;
+		wcout << "Mouse Clicked: " << button << endl;
+		wcout << L"Adjusted X:" << game->MousePosition.x << L" Y:" << game->MousePosition.y << endl;
 		game->mouseDown = true;
 	}
 	else {
