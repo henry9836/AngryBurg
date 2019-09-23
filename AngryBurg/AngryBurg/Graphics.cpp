@@ -21,7 +21,8 @@ void mouseMovement(int x, int y) {
 
 void mouse(int button, int state, int x, int y) { //Click
 	if (!game->mouseDown) {
-		//wcout << "Mouse Clicked: " << button << endl;
+		wcout << "Mouse Clicked: " << button << endl;
+		wcout << L"Adjusted X:" << game->MousePosition.x << L" Y:" << game->MousePosition.y << endl;
 		game->mouseDown = true;
 	}
 	else {

@@ -66,10 +66,7 @@ public:
 	virtual void Tick(float deltaTime, GameObject* _gameObject);
 };
 
-class TickWall : public TickClass {
-public:
-	virtual void Tick(float deltaTime, GameObject* _gameObject);
-};
+
 
 class GameObject {
 public:
@@ -84,14 +81,17 @@ public:
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
 
 	Transform& GetTransform() { return transform; };
+	
+	WallPhysics* wall;
 
 	bool deathMark = false;
 	Transform transform;
+	string name;
 protected:
 	
 	RenderClass* _r;
 	TickClass* _t;
-	string name;
+	
 };
 
 class BasicObject : public GameObject {
@@ -106,6 +106,7 @@ public:
 	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
 
+	
 };
 
 class WallObject : public GameObject {
@@ -119,7 +120,13 @@ public:
 
 	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
-	WallPhysics* wall;
+	
+};
+
+
+class TickWall : public TickClass {
+public:
+	virtual void Tick(float deltaTime, GameObject* _gameObject);
 };
 
 class BirdObject : public GameObject {
