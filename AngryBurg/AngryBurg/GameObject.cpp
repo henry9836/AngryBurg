@@ -149,15 +149,16 @@ void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 
 	if (wall->m_type == b2_dynamicBody) {
 
-		//wall->m_body->ApplyLinearImpulse(b2Vec2(100.00f, 0), wall->m_body->GetWorldCenter(), true);
-
+		//wall->m_body->ApplyLinearImpulse(b2Vec2(0.001f, 1.1f), wall->m_body->GetWorldCenter(), true);
+		wall->m_body->SetAngularVelocity(100.0f);
+		float32 teem = wall->m_body->GetAngularVelocity();
 		float32 temprot =  wall->m_body->GetAngle();
 		glm::vec3 temppos = glm::vec3(wall->m_body->GetPosition().x, wall->m_body->GetPosition().y, 0.1f);
 
 		
 
 		_gameObject->GetTransform().position = glm::vec3(temppos.x * scalar, temppos.y * scalar, 0.5f);
-		_gameObject->GetTransform().rotation = glm::vec3(0.0f, 0.0f, temprot);
+		_gameObject->GetTransform().rotation = glm::vec3(0.0f, 0.0f, glm::degrees(temprot));
 		_gameObject->transform.scale = glm::vec3(wall->m_hx * scalar, wall->m_hy * scalar, 1.0f);
 
 		Console_OutputLog(to_wstring("Object " + _gameObject->name + ": ") + to_wstring(_gameObject->GetTransform().position.x) + L" " + to_wstring(_gameObject->GetTransform().position.y) + L"|" + to_wstring(wall->m_body->GetPosition().x) + L" " + to_wstring(wall->m_body->GetPosition().y), LOGINFO);
