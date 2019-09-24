@@ -14,16 +14,40 @@ public:
 	{
 		if (contact)
 		{
-			std::wcout << contact->GetFixtureA()->GetBody()->GetID() << " " << contact->GetFixtureB()->GetBody()->GetID() << endl;
+			float force = oldManifold->points[0].normalImpulse;
+			if (force > 1.5f)
+			{
+				if (contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::BIRD && contact->GetFixtureB()->GetBody()->GetID() == PHYSICSTAG::PIG) {
+					contact->GetFixtureB()->GetBody()->MarkForDeath(true);
+				}
+				else if (contact->GetFixtureB()->GetBody()->GetID() == PHYSICSTAG::BIRD && contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::PIG) {
+					contact->GetFixtureA()->GetBody()->MarkForDeath(true);
+				}
+				else if (contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::DEFAULT && contact->GetFixtureB()->GetBody()->GetID() == PHYSICSTAG::PIG) {
+					contact->GetFixtureA()->GetBody()->MarkForDeath(true);
+					contact->GetFixtureB()->GetBody()->MarkForDeath(true);
+				}
+				else if (contact->GetFixtureB()->GetBody()->GetID() == PHYSICSTAG::DEFAULT && contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::PIG) {
+					contact->GetFixtureA()->GetBody()->MarkForDeath(true);
+					contact->GetFixtureB()->GetBody()->MarkForDeath(true);
+				}
+				else if (contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::DEFAULT && contact->GetFixtureB()->GetBody()->GetID() == PHYSICSTAG::BIRD) {
+					contact->GetFixtureA()->GetBody()->MarkForDeath(true);
+				}
+				else if (contact->GetFixtureB()->GetBody()->GetID() == PHYSICSTAG::DEFAULT && contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::BIRD) {
+					contact->GetFixtureB()->GetBody()->MarkForDeath(true);
+				}
+				else if (contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::DEFAULT && contact->GetFixtureB()->GetBody()->GetID() == PHYSICSTAG::DEFAULT) {
+					contact->GetFixtureA()->GetBody()->MarkForDeath(true);
+					contact->GetFixtureB()->GetBody()->MarkForDeath(true);
+				}
+				else if (contact->GetFixtureB()->GetBody()->GetID() == PHYSICSTAG::DEFAULT && contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::DEFAULT) {
+					contact->GetFixtureB()->GetBody()->MarkForDeath(true);
+					contact->GetFixtureA()->GetBody()->MarkForDeath(true);
+				}
+			}
 
-			if (contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::BIRD && contact->GetFixtureB()->GetBody()->GetID() == PHYSICSTAG::GROUND) {
-				contact->GetFixtureA()->GetBody()->MarkForDeath(true);
-				contact->GetFixtureB()->GetBody()->MarkForDeath(true);
-			}
-			else if (contact->GetFixtureB()->GetBody()->GetID() == PHYSICSTAG::BIRD && contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::GROUND) {
-				contact->GetFixtureA()->GetBody()->MarkForDeath(true);
-				contact->GetFixtureB()->GetBody()->MarkForDeath(true);
-			}
+
 
 		}
 
