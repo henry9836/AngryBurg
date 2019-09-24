@@ -3,8 +3,9 @@
 #include <windows.h>
 #include <Box2D/Box2D.h>
 #include "ConsoleController.h"
-#include "ITEMwall.h"
 #include "Util.h"
+
+class WallPhysics;
 
 class Physics
 {
@@ -16,9 +17,10 @@ public:
 	void worldsetup();
 
 	std::vector<WallPhysics*> Walls;
-	std::vector<WallPhysics*>WallsCollide;
+	std::vector<WallPhysics*> WallsCollide;
 	b2World* m_world = nullptr;
 
 	b2World* m_world2 = nullptr;
 };
 
+#include "ITEMwall.h"

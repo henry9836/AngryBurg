@@ -23,10 +23,14 @@ public:
 	Scenes assignedScene = GLOBAL;
 	WallTypes wallType = DEFAULT;
 
+	b2Vec2 startPos = b2Vec2(0,0);
+	float32 startAngle = 0;
+
 	WallPhysics(b2World* world, b2Vec2 middlepos, float32 hx, float32 hy, float32 angle, b2BodyType type, Scenes _scene, WallTypes _wallType)
 	{
 		assignedScene = _scene;
 		wallType = _wallType;
+		startAngle = angle;
 
 		if (type == b2_staticBody) //static
 		{
@@ -37,8 +41,7 @@ public:
 			m_angle = angle;
 			m_type = type;
 			m_b2world = *world;
-			
-
+			startPos = m_middlepos;
 
 			b2BodyDef myBodyDef;
 			myBodyDef.type = type;
@@ -66,7 +69,7 @@ public:
 			m_angle = angle;
 			m_type = type;
 			m_b2world = *world;
-
+			startPos = m_middlepos;
 
 			b2BodyDef myBodyDef;
 			myBodyDef.type = type;
@@ -91,5 +94,7 @@ public:
 
 	};
 	~WallPhysics() {};
+
+	void Reset();
 
 };

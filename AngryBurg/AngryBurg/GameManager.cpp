@@ -152,6 +152,18 @@ void Game::Tick(float deltaTime)
 		Exit();
 	}
 
+	if (input.CheckKeyDown(114)) { //r
+		for (size_t i = 0; i < gameObjects.size(); i++)
+		{
+			if (gameObjects.at(i)->wall != nullptr) {
+				if (gameObjects.at(i)->wall->m_type != b2_staticBody) {
+				
+					gameObjects.at(i)->wall->Reset();
+				}
+			}
+		}
+	}
+
 	if (currentScene == SCENE_MAIN) {
 		if (input.CheckKeyDown(32)) { //space
 			Console_OutputLog(L"User Started Game", LOGINFO);
