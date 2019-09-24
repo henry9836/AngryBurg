@@ -45,6 +45,12 @@ public:
 					contact->GetFixtureB()->GetBody()->MarkForDeath(true);
 					contact->GetFixtureA()->GetBody()->MarkForDeath(true);
 				}
+				else if (contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::PIG && contact->GetFixtureB()->GetBody()->GetID() == PHYSICSTAG::STRONGWALL) {
+					contact->GetFixtureA()->GetBody()->MarkForDeath(true);
+				}
+				else if (contact->GetFixtureB()->GetBody()->GetID() == PHYSICSTAG::PIG && contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::STRONGWALL) {
+					contact->GetFixtureB()->GetBody()->MarkForDeath(true);
+				}
 			}
 
 
