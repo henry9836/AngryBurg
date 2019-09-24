@@ -6,6 +6,22 @@
 #include "ITEMwall.h"
 #include "Util.h"
 
+class Listner : public b2ContactListener
+{
+
+public:
+	void PreSolve(b2Contact* contact, const b2Manifold* oldManifold)
+	{
+		if (contact)
+		{
+			contact->GetFixtureA()->GetBody()->MarkForDeath(true);
+			contact->GetFixtureB()->GetBody()->MarkForDeath(true);
+		}
+
+	};
+
+};
+
 class Physics
 {
 public:
@@ -20,5 +36,8 @@ public:
 	b2World* m_world;
 
 	b2World* m_world2;
+	
+private:
+	Listner* contactListner;
+	
 };
-

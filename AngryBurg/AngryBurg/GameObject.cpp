@@ -147,7 +147,8 @@ void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 	WallPhysics* wall = _gameObject->wall;
 	float32 scalar = 64.0f;
 
-	if (wall->m_type == b2_dynamicBody) {
+	if (wall->m_type == b2_dynamicBody)
+	{
 
 		//wall->m_body->ApplyLinearImpulse(b2Vec2(0.001f, 1.1f), wall->m_body->GetWorldCenter(), true);
 		if (wall->wallType == WallPhysics::BIRD)
@@ -167,7 +168,8 @@ void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 		//Console_OutputLog(to_wstring("Object " + _gameObject->name + ": ") + to_wstring(_gameObject->GetTransform().position.x) + L" " + to_wstring(_gameObject->GetTransform().position.y) + L"|" + to_wstring(wall->m_body->GetPosition().x) + L" " + to_wstring(wall->m_body->GetPosition().y), LOGINFO);
 
 	}
-	else if (wall->m_type == b2_staticBody) {
+	else if (wall->m_type == b2_staticBody)
+	{
 		float32 temprot = wall->m_body->GetAngle();
 		glm::vec3 temppos = glm::vec3(wall->m_body->GetPosition().x, wall->m_body->GetPosition().y, 0.1f);
 
@@ -175,6 +177,7 @@ void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 		_gameObject->GetTransform().rotation = glm::vec3(0.0f, 0.0f, temprot);
 		_gameObject->transform.scale = glm::vec3(wall->m_hx * scalar, wall->m_hy * scalar, 1.0f);
 	}
+
 }
 
 RenderText::~RenderText()

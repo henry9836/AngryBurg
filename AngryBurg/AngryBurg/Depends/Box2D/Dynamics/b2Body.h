@@ -128,6 +128,8 @@ struct b2BodyDef
 class b2Body
 {
 public:
+	
+
 	/// Creates a fixture and attach it to this body. Use this function if you need
 	/// to set some fixture parameters, like friction. Otherwise you can create the
 	/// fixture directly from a shape.
@@ -389,6 +391,10 @@ public:
 	/// Dump this body to a log file
 	void Dump();
 
+	///Edit Our Custom Bool
+	void MarkForDeath(bool input);
+	bool GetMark();
+	
 private:
 
 	friend class b2World;
@@ -468,6 +474,8 @@ private:
 	float32 m_gravityScale;
 
 	float32 m_sleepTime;
+
+	bool MarkedForDestruction;
 
 	void* m_userData;
 };
@@ -877,6 +885,16 @@ inline b2World* b2Body::GetWorld()
 inline const b2World* b2Body::GetWorld() const
 {
 	return m_world;
+}
+
+inline void b2Body::MarkForDeath(bool input)
+{
+	MarkedForDestruction = input;
+}
+
+inline bool b2Body::GetMark()
+{
+	return MarkedForDestruction;
 }
 
 #endif
