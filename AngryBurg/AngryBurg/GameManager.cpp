@@ -130,6 +130,20 @@ void Exit() {
 	exit(0);
 }
 
+void Game::Reset() {
+	birdsRemaining = 3;
+	spawnTimer = 0.0f;
+	for (size_t i = 0; i < gameObjects.size(); i++)
+	{
+		if (gameObjects.at(i)->wall != nullptr) {
+			if (gameObjects.at(i)->wall->m_type != b2_staticBody) {
+
+				gameObjects.at(i)->wall->Reset();
+			}
+		}
+	}
+}
+
 //Update Loop For Game
 void Game::Tick(float deltaTime)
 {
@@ -140,6 +154,8 @@ void Game::Tick(float deltaTime)
 			
 		}
 	}
+
+	spawnTimer += deltaTime;
 
 	//Physics
 	if (currentScene == SCENE_LVL1) {
@@ -156,21 +172,14 @@ void Game::Tick(float deltaTime)
 	}
 
 	if (input.CheckKeyDown(114)) { //r
-		for (size_t i = 0; i < gameObjects.size(); i++)
-		{
-			if (gameObjects.at(i)->wall != nullptr) {
-				if (gameObjects.at(i)->wall->m_type != b2_staticBody) {
-				
-					gameObjects.at(i)->wall->Reset();
-				}
-			}
-		}
+		Reset();
 	}
 
 	if (currentScene == SCENE_MAIN) {
 		if (input.CheckKeyDown(32)) { //space
 			Console_OutputLog(L"User Started Game", LOGINFO);
 			currentScene = SCENE_LVL1;
+			Reset();
 		}
 	}
 	else if (currentScene == SCENE_LVL1) {
@@ -180,7 +189,7 @@ void Game::Tick(float deltaTime)
 		}
 
 		if (mouseDown) {
-			if ((findDistance(MousePosition, glm::vec2(sling->transform.position.x, sling->transform.position.y)) < 125) && (findDistance(MousePosition, glm::vec2(sling->transform.position.x, sling->transform.position.y)) > 20)) {
+			if ((findDistance(MousePosition, glm::vec2(sling->transform.position.x, sling->transform.position.y)) < 135) && (findDistance(MousePosition, glm::vec2(sling->transform.position.x, sling->transform.position.y)) > 20)) {
 				float scaler = (1.0f / 64.0f);
 				playerBird->wall->m_body->SetTransform(b2Vec2(MousePosition.x * scaler, MousePosition.y * scaler), playerBird->wall->m_body->GetAngle());
 				Console_OutputLog(L"Clicked", LOGINFO);
@@ -198,6 +207,9 @@ void Game::Tick(float deltaTime)
 			playerBird->wall->m_body->ApplyLinearImpulse(b2Vec2(launchDir.x, launchDir.y), playerBird->wall->m_body->GetWorldCenter(), true);
 		}
 	}
+
+	//Check for GameOver
+
 
 
 }

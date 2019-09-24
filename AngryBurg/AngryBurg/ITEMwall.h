@@ -16,11 +16,10 @@ public:
 	Scenes assignedScene = GLOBAL;
 	PHYSICSTAG wallType = DEFAULT;
 
-	WallPhysics(b2World* world, b2Vec2 middlepos, float32 hx, float32 hy, float32 angle, b2BodyType type, Scenes _scene, PHYSICSTAG _wallType)
 	b2Vec2 startPos = b2Vec2(0,0);
 	float32 startAngle = 0;
 
-	WallPhysics(b2World* world, b2Vec2 middlepos, float32 hx, float32 hy, float32 angle, b2BodyType type, Scenes _scene, WallTypes _wallType)
+	WallPhysics(b2World* world, b2Vec2 middlepos, float32 hx, float32 hy, float32 angle, b2BodyType type, Scenes _scene, PHYSICSTAG _wallType)
 	{
 		assignedScene = _scene;
 		wallType = _wallType;
