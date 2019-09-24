@@ -90,6 +90,11 @@ public:
 
 
 	};
-	~WallPhysics() {};
+
+	~WallPhysics()
+	{
+
+	};
 
 };
+
