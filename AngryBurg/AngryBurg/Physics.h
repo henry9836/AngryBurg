@@ -33,7 +33,7 @@ public:
 
 	std::vector<WallPhysics*> Walls;
 	std::vector<WallPhysics*>WallsCollide;
-	b2World* m_world;
+	b2World* m_world = nullptr;
 
 	b2World* m_world2;
 	
