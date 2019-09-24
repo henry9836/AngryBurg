@@ -36,10 +36,20 @@ public:
 
 	bool mouseDown = false;
 	bool holdingBird = false;
+	bool gameover = false;
+
+	int birdsRemaining = 3;
+
+	float spawnTimerThreshold = 3.0f;
+	float spawnTimer = 0.0f;
 
 	void switchScene(Scenes newScene);
 	void Initalize(Physics* _physicsWorld);
 	void populateObjects();
+
+	void Reset();
+
+	bool AllPigDead();
 
 	void Tick(float deltaTime);
 

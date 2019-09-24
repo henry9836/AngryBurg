@@ -12,7 +12,7 @@
 enum Object_Attributes
 {
 	SPRITE,
-	NONE,
+	NONER,
 };
 
 enum Shader_Attributes
