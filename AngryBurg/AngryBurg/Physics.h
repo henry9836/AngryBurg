@@ -14,11 +14,19 @@ public:
 	{
 		if (contact)
 		{
-			if (contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::BIRD) {
+			std::wcout << contact->GetFixtureA()->GetBody()->GetID() << " " << contact->GetFixtureB()->GetBody()->GetID() << endl;
+
+			if (contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::BIRD && contact->GetFixtureB()->GetBody()->GetID() == PHYSICSTAG::GROUND) {
 				contact->GetFixtureA()->GetBody()->MarkForDeath(true);
 				contact->GetFixtureB()->GetBody()->MarkForDeath(true);
 			}
+			else if (contact->GetFixtureB()->GetBody()->GetID() == PHYSICSTAG::BIRD && contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::GROUND) {
+				contact->GetFixtureA()->GetBody()->MarkForDeath(true);
+				contact->GetFixtureB()->GetBody()->MarkForDeath(true);
+			}
+
 		}
+
 
 	};
 
