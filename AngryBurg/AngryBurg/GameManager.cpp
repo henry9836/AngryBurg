@@ -43,7 +43,13 @@ void Game::populateObjects()
 		}
 		else if (physicsWorld->Walls.at(i)->wallType == PHYSICSTAG::BIRD) {
 			this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/bird.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Bird Physics Object", physicsWorld->Walls.at(i)));
-			playerBird = gameObjects.back();
+			if (firstBird == nullptr) {
+				firstBird = gameObjects.back();
+				playerBird = firstBird;
+			}
+			else {
+				secondBird = gameObjects.back();
+			}
 		}
 		else if (physicsWorld->Walls.at(i)->wallType == PHYSICSTAG::PIG) {
 			this->gameObjects.push_back(new WallObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/pig.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new TickWall, Transform(glm::vec3(150.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(10.0f, 100.0f, 100.0f)), "Pig Physics Object", physicsWorld->Walls.at(i)));
@@ -67,7 +73,7 @@ void Game::populateObjects()
 	*/
 	//this->gameObjects.push_back(new BasicObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/logo.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(300.0f, 300.0f, 300.0f)), "Test Obj"));
 
-	//this->mainObjects.push_back(new BasicObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/logo.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(250.0f, 250.0f, 1.0f)), "Test Obj"));
+	this->mainObjects.push_back(new BasicObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/logo.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(250.0f, 250.0f, 1.0f)), "Test Obj"));
 
 
 
@@ -97,6 +103,9 @@ void Game::populateObjects()
 
 	this->mainObjects.push_back(new BasicObject(new RenderText(new CTextLabel("Press Space To Continue", "Resources/Fonts/angrybirds.ttf", glm::vec2(-600.0f, -350.0f), glm::vec3(0.0f, 0.0f, 0.0f), 0.7f, this, "Press Space To Continue")), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(100.0f, 100.0f, 100.0f)), "Press Space To Continue"));
 	this->mainObjects.push_back(new BasicObject(new RenderText(new CTextLabel("Angry Birbs", "Resources/Fonts/angrybirds.ttf", glm::vec2(-130.0f, 300.0f), glm::vec3(1.0f, 0.0f, 0.0f), 1.0f, this, "Title Text")), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(100.0f, 100.0f, 100.0f)), "Title Text"));
+
+	this->gameoverText = new BasicObject(new RenderText(new CTextLabel("Gameover\n\n\n\n Press R To Retry", "Resources/Fonts/angrybirds.ttf", glm::vec2(-130.0f, 300.0f), glm::vec3(1.0f, 0.0f, 0.0f), 1.0f, this, "Title Text")), new IdleTick, Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0, 0, 0), glm::vec3(100.0f, 100.0f, 100.0f)), "GameOver Text");
+
 
 	/*
 	* ==============
@@ -133,6 +142,7 @@ void Exit() {
 void Game::Reset() {
 	birdsRemaining = 3;
 	spawnTimer = 0.0f;
+	gameover = false;
 	for (size_t i = 0; i < gameObjects.size(); i++)
 	{
 		if (gameObjects.at(i)->wall != nullptr) {
@@ -198,13 +208,9 @@ void Game::Tick(float deltaTime)
 			Reset();
 		}
 	}
-	else if (currentScene == SCENE_LVL1) {
-		if (playerBird == nullptr) {
-			lvlOneObjects.push_back(new BirdObject(new RenderObject(MeshManager::GetMesh(Object_Attributes::SPRITE), MeshManager::SetTexture("Resources/Textures/bird.png"), this, MeshManager::GetShaderProgram(Shader_Attributes::BASIC_SHADER)), new IdleTick, Transform(sling->transform.position, glm::vec3(0, 0, 0), glm::vec3(20.0f, 20.0f, 1.0f)), "Angry Bird", new WallPhysics(physicsWorld->m_world, physicsWorld->Walls.at(1)->m_middlepos, physicsWorld->Walls.at(1)->m_hx, physicsWorld->Walls.at(1)->m_hy, physicsWorld->Walls.at(1)->m_angle, b2_dynamicBody, GLOBAL, PHYSICSTAG::BIRD), BirdObject::DEFAULT, this));
-			playerBird = lvlOneObjects.back();
-		}
+	else if (currentScene == SCENE_LVL1 || currentScene == SCENE_LVL2) {
 
-		if (mouseDown) {
+		if (mouseDown && (spawnTimer > spawnTimerThreshold) && (birdsRemaining > 0)) {
 			if ((findDistance(MousePosition, glm::vec2(sling->transform.position.x, sling->transform.position.y)) < 135) && (findDistance(MousePosition, glm::vec2(sling->transform.position.x, sling->transform.position.y)) > 20)) {
 				float scaler = (1.0f / 64.0f);
 				playerBird->wall->m_body->SetTransform(b2Vec2(MousePosition.x * scaler, MousePosition.y * scaler), playerBird->wall->m_body->GetAngle());
@@ -215,6 +221,8 @@ void Game::Tick(float deltaTime)
 		}
 		else if (holdingBird){
 			holdingBird = false;
+			birdsRemaining--;
+
 
 			playerBird->wall->m_body->SetLinearVelocity(b2Vec2_zero);
 			playerBird->wall->m_body->SetAngularVelocity(float32(0));
@@ -226,8 +234,35 @@ void Game::Tick(float deltaTime)
 
 	//Check for GameOver
 
-	if (AllPigDead()) {
-		Console_OutputLog(L"GAMEOVER", LOGINFO);
+	if (AllPigDead() || (birdsRemaining <= 0)) {
+		
+		if (currentScene == SCENE_LVL1) {
+			if (AllPigDead()) {
+				Console_OutputLog(L"GAMEOVER", LOGINFO);
+				currentScene = SCENE_LVL2;
+				playerBird = secondBird;
+				Reset();
+			}
+			else {
+				Console_OutputLog(L"GAMEOVER", LOGINFO);
+				gameover = true;
+			}
+		}
+		else if (currentScene == SCENE_LVL2) {
+			if (AllPigDead()) {
+				Console_OutputLog(L"GAMEOVER", LOGINFO);
+				currentScene = SCENE_MAIN;
+				playerBird = firstBird;
+				Reset();
+			}
+			else {
+				Console_OutputLog(L"GAMEOVER", LOGINFO);
+				gameover = true;
+			}
+		}
+		
+		
+
 	}
 
 }

@@ -25,7 +25,11 @@ public:
 	vector<GameObject*> lvlOneObjects; //lvl1
 	vector<GameObject*> lvlTwoObjects; //lvl2
 
+	GameObject* gameoverText;
+
 	GameObject* playerBird = nullptr;
+	GameObject* firstBird = nullptr;
+	GameObject* secondBird = nullptr;
 	GameObject* sling = nullptr;
 
 	Physics* physicsWorld = nullptr;
@@ -40,7 +44,7 @@ public:
 
 	int birdsRemaining = 3;
 
-	float spawnTimerThreshold = 3.0f;
+	float spawnTimerThreshold = 10.0f;
 	float spawnTimer = 0.0f;
 
 	void switchScene(Scenes newScene);
