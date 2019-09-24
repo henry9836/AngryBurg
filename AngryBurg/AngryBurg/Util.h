@@ -29,6 +29,15 @@ enum Scenes {
 	GLOBAL
 };
 
+enum PHYSICSTAG {
+	NONE,
+	DEFAULT,
+	BIRD,
+	PIG,
+	STRONGWALL,
+	GROUND
+};
+
 
 struct Transform {
 	glm::vec3 position;

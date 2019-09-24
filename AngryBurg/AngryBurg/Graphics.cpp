@@ -67,7 +67,10 @@ void Render() {
 		}
 		else if (game->gameObjects.at(i)->wall->assignedScene == game->currentScene) {
 			game->gameObjects.at(i)->Render();
-			if (game->gameObjects.at(i)->wall->m_body->GetMark()) {
+
+			if (game->gameObjects.at(i)->wall->m_body->GetMark()) 
+			{
+
 				Console_OutputLog(L"MARKED", LOGFATAL);
 
 			}

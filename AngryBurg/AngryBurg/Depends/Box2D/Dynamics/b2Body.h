@@ -21,6 +21,7 @@
 
 #include "Box2D/Common/b2Math.h"
 #include "Box2D/Collision/Shapes/b2Shape.h"
+#include "Util.h"
 #include <memory>
 
 class b2Fixture;
@@ -391,9 +392,11 @@ public:
 	/// Dump this body to a log file
 	void Dump();
 
-	///Edit Our Custom Bool
+	///Edit Our Custom 
 	void MarkForDeath(bool input);
 	bool GetMark();
+	void SetID(PHYSICSTAG _id);
+	PHYSICSTAG GetID();
 	
 private:
 
@@ -474,6 +477,8 @@ private:
 	float32 m_gravityScale;
 
 	float32 m_sleepTime;
+
+	PHYSICSTAG id = PHYSICSTAG::NONE;
 
 	bool MarkedForDestruction;
 
@@ -895,6 +900,16 @@ inline void b2Body::MarkForDeath(bool input)
 inline bool b2Body::GetMark()
 {
 	return MarkedForDestruction;
+}
+
+inline void b2Body::SetID(PHYSICSTAG _id)
+{
+	id = _id;
+}
+
+inline PHYSICSTAG b2Body::GetID()
+{
+	return id;
 }
 
 #endif

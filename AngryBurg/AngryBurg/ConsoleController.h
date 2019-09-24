@@ -72,10 +72,10 @@ RANGE: 0-254
 
 enum LOGCOLOR
 {
-	DEFAULT = 15,
 	LOGINFO = 10,
 	LOGWARN = 6,
 	LOGFATAL = 12,
+	LOGDEFAULT = 14,
 };
 
 inline bool fullLogColor = false;
@@ -121,7 +121,7 @@ inline void Console_ColoredTEXTChar(char m_word, int m_color) {
 }
 
 inline void Console_OutputLog(std::wstring log, int type) {
-	Console_ColoredTEXT(L"[", DEFAULT);
+	Console_ColoredTEXT(L"[", LOGDEFAULT);
 	switch (type)
 	{
 	case LOGINFO: {
@@ -137,17 +137,17 @@ inline void Console_OutputLog(std::wstring log, int type) {
 		break;
 	}
 	default: {
-		Console_ColoredTEXT(L"UNKN", DEFAULT);
+		Console_ColoredTEXT(L"UNKN", LOGWARN);
 		break;
 	}
 	}
-	Console_ColoredTEXT(L"] ", DEFAULT);
+	Console_ColoredTEXT(L"] ", LOGDEFAULT);
 	log = log + L"\n";
 	if (fullLogColor) {
 		Console_ColoredTEXT(log, type);
 	}
 	else {
-		Console_ColoredTEXT(log, DEFAULT);
+		Console_ColoredTEXT(log, LOGDEFAULT);
 	}
 }
 
