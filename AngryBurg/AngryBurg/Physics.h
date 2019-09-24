@@ -4,6 +4,7 @@
 #include <Box2D/Box2D.h>
 #include "ConsoleController.h"
 #include "ITEMwall.h"
+#include "Util.h"
 
 class Physics
 {
@@ -15,8 +16,9 @@ public:
 	void worldsetup();
 
 	std::vector<WallPhysics*> Walls;
-
 	std::vector<WallPhysics*>WallsCollide;
 	b2World* m_world;
+
+	b2World* m_world2;
 };
 
