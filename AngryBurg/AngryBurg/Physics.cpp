@@ -38,13 +38,10 @@ void Physics::worldsetup()
 	wall = new WallPhysics(m_world, b2Vec2(0, 100), 50, 50, 10, b2_dynamicBody, SCENE_LVL1, PHYSICSTAG::PIG); //piig
 	Walls.push_back(wall);
 
-	wall = new WallPhysics(m_world, b2Vec2(-150, 0), 30, 200, 0, b2_dynamicBody, SCENE_LVL1, PHYSICSTAG::DEFAULT);// obsicle1
+	wall = new WallPhysics(m_world, b2Vec2(-50, 0), 30, 200, 0, b2_dynamicBody, SCENE_LVL1, PHYSICSTAG::DEFAULT);// obsicle1
 	Walls.push_back(wall);
 
 	wall = new WallPhysics(m_world, b2Vec2(-300, 0), 30, 200, 0, b2_dynamicBody, SCENE_LVL1, PHYSICSTAG::STRONGWALL);// obsicle1
-	Walls.push_back(wall);
-
-	wall = new WallPhysics(m_world, b2Vec2(-150, 300), 200, 30, 0, b2_dynamicBody, SCENE_LVL1, PHYSICSTAG::DEFAULT);// obsicle1
 	Walls.push_back(wall);
 
 	//LVL2
@@ -55,16 +52,16 @@ void Physics::worldsetup()
 	wall = new WallPhysics(m_world2, b2Vec2(1000, 100), 50, 50, 10, b2_dynamicBody, GLOBAL, PHYSICSTAG::BIRD); //birb
 	Walls.push_back(wall);
 
-	wall = new WallPhysics(m_world2, b2Vec2(0, 100), 50, 50, 10, b2_dynamicBody, SCENE_LVL2, PHYSICSTAG::PIG); //piig
+	wall = new WallPhysics(m_world2, b2Vec2(150, 50), 50, 50, 10, b2_dynamicBody, SCENE_LVL2, PHYSICSTAG::PIG); //piig
 	Walls.push_back(wall);
 
-	wall = new WallPhysics(m_world2, b2Vec2(-150, 0), 30, 200, 0, b2_dynamicBody, SCENE_LVL2, PHYSICSTAG::DEFAULT);// obsicle1
+	wall = new WallPhysics(m_world2, b2Vec2(50, 0), 30, 200, 0, b2_dynamicBody, SCENE_LVL2, PHYSICSTAG::DEFAULT);// obsicle1
 	Walls.push_back(wall);
 
-	wall = new WallPhysics(m_world2, b2Vec2(-300, 0), 30, 200, 0, b2_dynamicBody, SCENE_LVL2, PHYSICSTAG::STRONGWALL);// obsicle1
+	wall = new WallPhysics(m_world2, b2Vec2(300, 0), 30, 200, 0, b2_dynamicBody, SCENE_LVL2, PHYSICSTAG::DEFAULT);// obsicle1
 	Walls.push_back(wall);
 
-	wall = new WallPhysics(m_world2, b2Vec2(-150, 300), 200, 30, 0, b2_dynamicBody, SCENE_LVL2, PHYSICSTAG::DEFAULT);// obsicle1
+	wall = new WallPhysics(m_world2, b2Vec2(150, 300), 200, 30, 0, b2_dynamicBody, SCENE_LVL2, PHYSICSTAG::STRONGWALL);// obsicle1
 	Walls.push_back(wall);
 
 	Console_OutputLog(L"Box2D Setup Done.", LOGINFO);
