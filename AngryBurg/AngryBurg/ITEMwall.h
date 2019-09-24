@@ -4,13 +4,6 @@
 
 class WallPhysics {
 public:
-	enum WallTypes {
-		DEFAULT,
-		BIRD,
-		PIG,
-		STRONGWALL,
-		GROUND
-	};
 
 	//class member variables
 	b2Body* m_body = nullptr;
@@ -21,12 +14,13 @@ public:
 	b2BodyType m_type;
 	b2World m_b2world = b2World(b2Vec2 (0.0f, 0.0f));
 	Scenes assignedScene = GLOBAL;
-	WallTypes wallType = DEFAULT;
+	PHYSICSTAG wallType = DEFAULT;
 
-	WallPhysics(b2World* world, b2Vec2 middlepos, float32 hx, float32 hy, float32 angle, b2BodyType type, Scenes _scene, WallTypes _wallType)
+	WallPhysics(b2World* world, b2Vec2 middlepos, float32 hx, float32 hy, float32 angle, b2BodyType type, Scenes _scene, PHYSICSTAG _wallType)
 	{
 		assignedScene = _scene;
 		wallType = _wallType;
+		
 
 		if (type == b2_staticBody) //static
 		{
@@ -87,7 +81,7 @@ public:
 
 
 		}
-
+		m_body->SetID(_wallType);
 
 	};
 

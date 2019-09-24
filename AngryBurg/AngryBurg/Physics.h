@@ -14,8 +14,10 @@ public:
 	{
 		if (contact)
 		{
-			contact->GetFixtureA()->GetBody()->MarkForDeath(true);
-			contact->GetFixtureB()->GetBody()->MarkForDeath(true);
+			if (contact->GetFixtureA()->GetBody()->GetID() == PHYSICSTAG::BIRD) {
+				contact->GetFixtureA()->GetBody()->MarkForDeath(true);
+				contact->GetFixtureB()->GetBody()->MarkForDeath(true);
+			}
 		}
 
 	};

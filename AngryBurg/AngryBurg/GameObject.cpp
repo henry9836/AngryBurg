@@ -151,7 +151,7 @@ void TickWall::Tick(float deltaTime, GameObject* _gameObject)
 	{
 
 		//wall->m_body->ApplyLinearImpulse(b2Vec2(0.001f, 1.1f), wall->m_body->GetWorldCenter(), true);
-		if (wall->wallType == WallPhysics::BIRD)
+		if (wall->wallType == PHYSICSTAG::BIRD)
 		{
 			wall->m_body->SetAngularVelocity(10.0f);
 		}
