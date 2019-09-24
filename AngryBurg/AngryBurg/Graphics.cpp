@@ -72,6 +72,7 @@ void Render() {
 			{
 
 				Console_OutputLog(L"MARKED", LOGFATAL);
+				game->gameObjects.at(i)->wall->m_body->MarkForDeath(false);
 
 			}
 		}

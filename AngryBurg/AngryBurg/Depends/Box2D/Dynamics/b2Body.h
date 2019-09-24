@@ -480,7 +480,7 @@ private:
 
 	PHYSICSTAG id = PHYSICSTAG::NONE;
 
-	bool MarkedForDestruction;
+	bool MarkedForDestruction = false;
 
 	void* m_userData;
 };
