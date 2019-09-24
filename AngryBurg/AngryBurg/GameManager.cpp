@@ -137,11 +137,27 @@ void Game::Reset() {
 	{
 		if (gameObjects.at(i)->wall != nullptr) {
 			if (gameObjects.at(i)->wall->m_type != b2_staticBody) {
-
+				gameObjects.at(i)->wall->m_body->SetActive(true);
 				gameObjects.at(i)->wall->Reset();
 			}
 		}
 	}
+}
+
+bool Game::AllPigDead() {
+	for (size_t i = 0; i < gameObjects.size(); i++)
+	{
+		if (gameObjects.at(i)->wall != nullptr) {
+			if (gameObjects.at(i)->wall->assignedScene == currentScene) {
+				if (gameObjects.at(i)->wall->m_body->GetID() == PHYSICSTAG::PIG) {
+					if (!gameObjects.at(i)->wall->m_body->GetMark()) {
+						return false;
+					}
+				}
+			}
+		}
+	}
+	return true;
 }
 
 //Update Loop For Game
@@ -155,7 +171,7 @@ void Game::Tick(float deltaTime)
 		}
 	}
 
-	spawnTimer += deltaTime;
+	spawnTimer += deltaTime/60;
 
 	//Physics
 	if (currentScene == SCENE_LVL1) {
@@ -210,7 +226,9 @@ void Game::Tick(float deltaTime)
 
 	//Check for GameOver
 
-
+	if (AllPigDead()) {
+		Console_OutputLog(L"GAMEOVER", LOGINFO);
+	}
 
 }
 

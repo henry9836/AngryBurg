@@ -66,12 +66,14 @@ void Render() {
 			game->gameObjects.at(i)->Render();
 		}
 		else if (game->gameObjects.at(i)->wall->assignedScene == game->currentScene) {
-
-			if (game->gameObjects.at(i)->wall->m_body->GetMark()) 
+			if (game->gameObjects.at(i)->wall->m_body->GetMark())
 			{
 				Console_OutputLog(L"MARKED", LOGFATAL);
 				if (game->spawnTimer < game->spawnTimerThreshold) {
 					game->gameObjects.at(i)->wall->m_body->MarkForDeath(false);
+				}
+				else {
+					game->gameObjects.at(i)->wall->m_body->SetActive(false);
 				}
 			}
 			if (!game->gameObjects.at(i)->wall->m_body->GetMark())
