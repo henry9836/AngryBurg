@@ -93,8 +93,8 @@ public:
 
 
 	};
-	~WallPhysics() {};
 
 	void Reset();
 
 };
+

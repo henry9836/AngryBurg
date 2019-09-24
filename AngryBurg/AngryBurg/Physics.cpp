@@ -1,7 +1,6 @@
 #include "Physics.h"
 
 
-
 Physics::Physics()
 {
 }
@@ -19,6 +18,12 @@ void Physics::worldsetup()
 	b2Vec2 gravity(0.0f, -9.81f);
 	m_world = new b2World(gravity);
 	m_world2 = new b2World(gravity);
+
+	contactListner = new Listner;
+
+	m_world->SetContactListener(&*contactListner);
+	m_world2->SetContactListener(&*contactListner);
+
 
 	float32 thicknes = 640;
 
