@@ -35,7 +35,7 @@ void Game::populateObjects()
 	* ===========
 	*/
 
-	for (int i = 0; i < physicsWorld->Walls.size(); i++)
+	for (unsigned int i = 0; i < physicsWorld->Walls.size(); i++)
 	{
 
 		if (physicsWorld->Walls.at(i)->wallType == WallPhysics::DEFAULT) {
@@ -165,10 +165,22 @@ void Game::Tick(float deltaTime)
 		}
 
 		if (mouseDown) {
-			//playerBird->transform.position = glm::vec3(MousePosition.x, MousePosition.y ,0.5);
-			float scaler = (1.0f / 64.0f);
-			playerBird->wall->m_body->SetTransform(b2Vec2(MousePosition.x*scaler, MousePosition.y*scaler), playerBird->wall->m_body->GetAngle());
-			Console_OutputLog(L"Clicked", LOGINFO);
+			if ((findDistance(MousePosition, glm::vec2(sling->transform.position.x, sling->transform.position.y)) < 125) && (findDistance(MousePosition, glm::vec2(sling->transform.position.x, sling->transform.position.y)) > 20)) {
+				float scaler = (1.0f / 64.0f);
+				playerBird->wall->m_body->SetTransform(b2Vec2(MousePosition.x * scaler, MousePosition.y * scaler), playerBird->wall->m_body->GetAngle());
+				Console_OutputLog(L"Clicked", LOGINFO);
+				holdingBird = true;
+
+			}
+		}
+		else if (holdingBird){
+			holdingBird = false;
+
+			playerBird->wall->m_body->SetLinearVelocity(b2Vec2_zero);
+			playerBird->wall->m_body->SetAngularVelocity(float32(0));
+			glm::vec2 launchDir = glm::vec2((sling->transform.position.x - playerBird->transform.position.x),(sling->transform.position.y - playerBird->transform.position.y)) * 0.75f;
+
+			playerBird->wall->m_body->ApplyLinearImpulse(b2Vec2(launchDir.x, launchDir.y), playerBird->wall->m_body->GetWorldCenter(), true);
 		}
 	}
 
