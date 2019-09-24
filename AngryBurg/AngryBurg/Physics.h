@@ -5,6 +5,8 @@
 #include "ConsoleController.h"
 #include "Util.h"
 
+class WallPhysics;
+
 class Listner : public b2ContactListener
 {
 
@@ -41,3 +43,4 @@ private:
 	
 };
 
+#include "ITEMwall.h"
