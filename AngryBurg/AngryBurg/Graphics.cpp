@@ -65,7 +65,7 @@ void Render() {
 		else if (game->gameObjects.at(i)->wall->assignedScene == GLOBAL) {
 			game->gameObjects.at(i)->Render();
 		}
-		else if (game->gameObjects.at(i)->wall->assignedScene == game->currentScene) {
+		else if ((game->gameObjects.at(i)->wall->assignedScene == game->currentScene)) {
 			if (game->gameObjects.at(i)->wall->m_body->GetMark())
 			{
 				Console_OutputLog(L"MARKED", LOGFATAL);
@@ -100,6 +100,10 @@ void Render() {
 		{
 			game->lvlTwoObjects.at(i)->Render();
 		}
+	}
+
+	if (game->gameover) {
+		game->gameoverText->Render();
 	}
 
 	glutSwapBuffers();
