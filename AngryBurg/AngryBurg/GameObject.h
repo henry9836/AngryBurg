@@ -33,7 +33,7 @@ public:
 	GLuint VAO;
 	unsigned int indiceCount;
 	GLuint texture;
-	Game* game;
+	Game* game = nullptr;
 	GLuint shaderProgram;
 
 };
@@ -90,8 +90,8 @@ public:
 	string name;
 protected:
 	
-	RenderClass* _r;
-	TickClass* _t;
+	RenderClass* _r = nullptr;
+	TickClass* _t = nullptr;
 	
 };
 
@@ -146,8 +146,8 @@ public:
 
 	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
-	WallPhysics* wall;
-	Game* game;
+	WallPhysics* wall = nullptr;
+	Game* game = nullptr;
 	BIRDTYPE Birdtype = DEFAULT;
 };
 
@@ -167,8 +167,8 @@ public:
 
 	virtual void SetTexture(GLuint _tex) { _r->SetTexture(_tex); };
 	virtual void SetShader(GLuint _shader) { _r->SetTexture(_shader); };
-	WallPhysics* wall;
-	Game* game;
+	WallPhysics* wall = nullptr;
+	Game* game = nullptr;
 	float health = 10;
 };
 

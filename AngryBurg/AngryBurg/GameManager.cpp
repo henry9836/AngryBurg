@@ -35,7 +35,7 @@ void Game::populateObjects()
 	* ===========
 	*/
 
-	for (int i = 0; i < physicsWorld->Walls.size(); i++)
+	for (unsigned int i = 0; i < physicsWorld->Walls.size(); i++)
 	{
 
 		if (physicsWorld->Walls.at(i)->wallType == WallPhysics::DEFAULT) {

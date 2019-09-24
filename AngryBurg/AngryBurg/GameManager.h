@@ -17,7 +17,7 @@ public:
 	~Game();
 
 	Scenes currentScene = SCENE_MAIN;
-	CMenu* StartMenu;
+	CMenu* StartMenu = nullptr;
 
 	//scenes
 	vector<GameObject*> gameObjects; //global
@@ -25,11 +25,11 @@ public:
 	vector<GameObject*> lvlOneObjects; //lvl1
 	vector<GameObject*> lvlTwoObjects; //lvl2
 
-	GameObject* playerBird;
-	GameObject* sling;
+	GameObject* playerBird = nullptr;
+	GameObject* sling = nullptr;
 
-	Physics* physicsWorld;
-	Physics* physicsWorld2;
+	Physics* physicsWorld = nullptr;
+	Physics* physicsWorld2 = nullptr;
 
 	glm::vec2 ScreenSize = { 1280, 720 };
 	glm::vec2 MousePosition;

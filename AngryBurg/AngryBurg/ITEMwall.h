@@ -13,7 +13,7 @@ public:
 	};
 
 	//class member variables
-	b2Body* m_body;
+	b2Body* m_body = nullptr;
 	b2Vec2 m_middlepos;
 	float32 m_hx;
 	float32 m_hy;
