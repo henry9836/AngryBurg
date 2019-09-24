@@ -35,6 +35,7 @@ public:
 	glm::vec2 MousePosition;
 
 	bool mouseDown = false;
+	bool holdingBird = false;
 
 	void switchScene(Scenes newScene);
 	void Initalize(Physics* _physicsWorld);
